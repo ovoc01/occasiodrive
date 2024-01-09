@@ -1,8 +1,8 @@
 spring:
    datasource:
-      url: jdbc:postgresql://localhost:5432/token
+      url: postgresql://postgres:Ag362eB4fccE6d*gd3DaC5EaFA-C2Df6@monorail.proxy.rlwy.net:11432/railway
       username: postgres
-      password: pixel
+      password: Ag362eB4fccE6d*gd3DaC5EaFA-C2Df6
       driver-class-name: org.postgresql.Driver
    jpa:
       hibernate:
