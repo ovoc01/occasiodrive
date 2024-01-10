@@ -22,7 +22,6 @@ import java.util.HashMap;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
-
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody RegistrationRequest register) {
         HashMap<String, Object> map = new HashMap<>();
@@ -37,6 +36,9 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(map);
         }
     }
+
+
+
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody AuthenticationRequest login) {
