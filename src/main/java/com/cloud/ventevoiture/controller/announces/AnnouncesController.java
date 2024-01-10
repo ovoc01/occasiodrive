@@ -27,4 +27,10 @@ public class AnnouncesController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findById(@PathVariable("id")Integer id){
+        return null;
+    }
+
+
 }
