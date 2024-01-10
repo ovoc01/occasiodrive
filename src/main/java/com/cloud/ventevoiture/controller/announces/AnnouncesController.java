@@ -26,7 +26,7 @@ public class AnnouncesController {
 
 
     @PostMapping(value = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
+    public ResponseEntity<Object> upload(@RequestPart MultipartFile file){
         System.out.println(file.getOriginalFilename());
         return ResponseEntity.ok("okey");
     }
