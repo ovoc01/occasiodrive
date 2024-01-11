@@ -1,8 +1,8 @@
 spring:
    datasource:
-      url: jdbc:postgresql://localhost:5432/vente_voiture_postgres
+      url: jdbc:postgresql://monorail.proxy.rlwy.net:36820/railway
       username: postgres
-      password: nnnn
+      password: daGf2g5fF63dFebDEda*CfBEag3EG-gG
       driver-class-name: org.postgresql.Driver
    jpa:
       hibernate:
