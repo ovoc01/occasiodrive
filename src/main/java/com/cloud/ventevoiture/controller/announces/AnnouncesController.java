@@ -18,16 +18,13 @@ public class AnnouncesController {
     public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
         HashMap<String ,Object> map = new HashMap<>();
         map.put("message","announces created");
-        System.out.println(auth.getPrincipal());
-        System.out.println(announcesRequest);
         return ResponseEntity.ok(map);
     }
 
 
 
     @PostMapping(value = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> upload(@RequestPart MultipartFile file){
-        System.out.println(file.getOriginalFilename());
+    public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
         return ResponseEntity.ok("okey");
     }
 

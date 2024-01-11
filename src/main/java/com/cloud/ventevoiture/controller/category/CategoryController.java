@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/category")
+@CrossOrigin(origins = "*")
 public class CategoryController {
     private final CategoryRepository categoryRepository;
 
@@ -35,18 +36,14 @@ public class CategoryController {
         return categoryRepository.findAll();
     }
 
-
-
-    @GetMapping("/findOne")
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
+    @GetMapping("/findOne")
     public Category findOne(@RequestParam int category_id){
         return categoryRepository.findOne(category_id);
     }
 
-
-
-    @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestParam int id_category){
         try {
             categoryRepository.deleteById_category(id_category);
