@@ -15,8 +15,10 @@ import java.util.HashMap;
 public class AnnouncesController {
 
 
+    @PostMapping
     public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
         HashMap<String ,Object> map = new HashMap<>();
+       
         map.put("message","announces created");
         return ResponseEntity.ok(map);
     }
@@ -25,13 +27,11 @@ public class AnnouncesController {
 
     @PostMapping(value = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
+
         return ResponseEntity.ok("okey");
     }
 
-    @GetMapping
-    public ResponseEntity<Object> findAll(){
-        return null;
-    }
+
 
 
     @GetMapping("/{id}")

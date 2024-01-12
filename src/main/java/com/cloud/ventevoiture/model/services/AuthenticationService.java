@@ -9,6 +9,7 @@ import com.cloud.ventevoiture.model.user.Person;
 import com.cloud.ventevoiture.model.user.User;
 import com.cloud.ventevoiture.model.user.role.Role;
 import jakarta.transaction.Transactional;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -40,12 +42,11 @@ public class AuthenticationService {
                 .email(register.getEmail())
                 .build();
 
-
+        String birthDate = register.getBirthDate().split("T")[0];
         var person = Person.builder()
-                .firstName(register.getFirstName())
+                .lastName(register.getFullName())
                 .gender((register.getGender()==0) ? Gender.FEMALE:Gender.MALE)
-                .lastName(register.getLastName())
-                .birthDate(Date.valueOf(register.getBirthDate()))
+                .birthDate(Date.valueOf(birthDate))
                 .build();
 
         Person p = personRepository.save(person);
