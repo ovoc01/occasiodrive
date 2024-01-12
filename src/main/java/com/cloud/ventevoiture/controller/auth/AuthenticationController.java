@@ -26,6 +26,7 @@ public class AuthenticationController {
     public ResponseEntity<Object> register(@RequestBody RegistrationRequest register) {
         HashMap<String, Object> map = new HashMap<>();
 
+
         try {
             authenticationService.register(register);
             map.put("message", "User registered successfully");

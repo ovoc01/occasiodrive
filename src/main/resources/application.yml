@@ -1,8 +1,10 @@
 spring:
    datasource:
+
       url: jdbc:postgresql://monorail.proxy.rlwy.net:36820/railway
       username: postgres
       password: daGf2g5fF63dFebDEda*CfBEag3EG-gG
+
       driver-class-name: org.postgresql.Driver
    jpa:
       hibernate:
@@ -16,4 +18,4 @@ spring:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
       database: postgresql
 server:
-   port: 8080
+   port: 7070

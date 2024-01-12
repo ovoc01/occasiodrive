@@ -4,7 +4,9 @@ import com.cloud.ventevoiture.model.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CategoryRepository extends JpaRepository<Category, String> {
     @Query(value = "Select * from category where id_category = :id_category" ,nativeQuery = true)
     public Category findOne(@Param("id_category") int id_category);
