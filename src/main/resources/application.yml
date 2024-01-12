@@ -1,8 +1,9 @@
 spring:
    datasource:
-      url: jdbc:postgresql://localhost:5432/vente_voiture_postgres
+      url: jdbc:postgresql://localhost:5432/token
       username: postgres
       password: megane
+
       driver-class-name: org.postgresql.Driver
    jpa:
       hibernate:
@@ -16,4 +17,4 @@ spring:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
       database: postgresql
 server:
-   port: 8080
+   port: 7070
