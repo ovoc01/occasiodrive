@@ -2,7 +2,7 @@ spring:
    datasource:
       url: jdbc:postgresql://localhost:5432/vente_voiture_postgres
       username: postgres
-      password: nnnn
+      password: megane
       driver-class-name: org.postgresql.Driver
    jpa:
       hibernate:
