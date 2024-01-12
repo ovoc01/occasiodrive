@@ -1,8 +1,11 @@
 package com.cloud.ventevoiture.model.repository;
 
-import com.cloud.ventevoiture.model.user.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.cloud.ventevoiture.model.announces.Announces;
+
 @Repository
-public interface PersonRepository extends JpaRepository<Person,Integer> {
+public interface AnnouncesRepository extends JpaRepository<Announces,Integer>{
+    
 }

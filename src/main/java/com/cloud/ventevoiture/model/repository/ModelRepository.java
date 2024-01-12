@@ -4,7 +4,9 @@ import com.cloud.ventevoiture.model.model.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ModelRepository extends JpaRepository<Model, String> {
     @Query(value = "Select * from model where id_model = :id_model" ,nativeQuery = true)
     public Model findOne(@Param("id_model") int id_model);
