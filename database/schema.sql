@@ -38,10 +38,14 @@ CREATE TABLE "fuel_type" (
 
 CREATE TABLE "car" (
                        "id_car" SERIAL PRIMARY KEY,
-                       "registration" VARCHAR(50) UNIQUE,
                        "id_model" INT,
+                        "id_assoc_model_transmission" INT ,
+                       "id_assoc_model_fuel_type" INT ,
+                       "id_assoc_model_engine_power" INT ,
+                       "registration" VARCHAR(50) UNIQUE,
                        "manufacturing_year" INT,
                        "mile_age" DOUBLE PRECISION
+
 );
 
 CREATE TABLE "announces" (
@@ -78,6 +82,9 @@ CREATE TABLE "assoc_model_engine_power" (
                                             "engine_power" DOUBLE PRECISION
 );
 
+
+
+
 ALTER TABLE "assoc_model_engine_power" ADD FOREIGN KEY ("id_model") REFERENCES "model" ("id_model");
 
 ALTER TABLE "assoc_model_fuel_type" ADD FOREIGN KEY ("id_model") REFERENCES "model" ("id_model");
@@ -95,6 +102,9 @@ ALTER TABLE "person_user" ADD FOREIGN KEY ("id_person") REFERENCES "person" ("id
 ALTER TABLE "model" ADD FOREIGN KEY ("id_brand") REFERENCES "brand" ("id_brand");
 
 ALTER TABLE "car" ADD FOREIGN KEY ("id_model") REFERENCES "model" ("id_model");
+ALTER TABLE "car" ADD FOREIGN KEY ("id_assoc_model_transmission") REFERENCES "assoc_model_transmission" ("id_assoc_model_transmission");
+ALTER TABLE "car" ADD FOREIGN KEY ("id_assoc_model_fuel_type") REFERENCES "assoc_model_fuel_type" ("id_assoc_model_fuel_type");
+ALTER TABLE "car" ADD FOREIGN KEY ("id_assoc_model_engine_power") REFERENCES "assoc_model_engine_power" ("id_assoc_model_engine_power");
 
 ALTER TABLE "announces" ADD FOREIGN KEY ("id_car") REFERENCES "car" ("id_car");
 
