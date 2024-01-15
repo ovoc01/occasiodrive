@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/model")
+@RequestMapping("/api/v1/models")
 public class ModelController {
     private final ModelRepository modelRepository;
 
@@ -19,20 +19,20 @@ public class ModelController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/save")
+    @PostMapping
     public Model save (@RequestBody Model model){
         return modelRepository.save(model);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
-    @GetMapping("/listAll")
+    @GetMapping
     public List<Model> listAll(){
         return modelRepository.findAll();
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
-    @GetMapping("/findOne")
-    public Model findOne(@RequestParam int id_model){
+    @GetMapping("{id_model}")
+    public Model findOne(@PathVariable int id_model){
         return modelRepository.findOne(id_model);
     }
 

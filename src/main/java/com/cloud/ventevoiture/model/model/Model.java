@@ -9,7 +9,7 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_model;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_brand")
     Brand brand;
     String model;

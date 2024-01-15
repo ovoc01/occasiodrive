@@ -19,7 +19,7 @@ public class BrandController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/save")
+    @PostMapping
     public Brand save(@RequestBody Brand brand){
         return brandRepository.save(brand);
     }
@@ -31,7 +31,7 @@ public class BrandController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
-    @GetMapping("/listAll")
+    @GetMapping
     public List<Brand> listAll(){
         return brandRepository.findAll();
     }
