@@ -27,7 +27,7 @@ public class AnnouncesServices {
 
     @Transactional
     public void persist(AnnouncesRequest request, User user){
-        Car car = carRepository.insertCar(request.getIdModel(),request.getIdTransmission(),request.getIdFuelType(),request.getEnginePower(),request.getRegistration(),request.getManufacturingYear(),request.getMileAge());
+        //Car car = carRepository.insertCar(request.getIdModel(),request.getIdTransmission(),request.getIdFuelType(),request.getEnginePower(),request.getRegistration(),request.getManufacturingYear(),request.getMileAge());
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
         Announce announce = new Announce()
                 .builder()
@@ -36,12 +36,13 @@ public class AnnouncesServices {
                 .status(0)
                 .dateAnnounces(Instant.now())
                 .validationDate(null)
-                .idCar(car)
+                .idCar(null)
                 .idPerson(person)
                 .build();
 
-        announcesRepository.save(announce);
-        carRepository.save(car);
+        System.out.println(announce);
+        //announcesRepository.save(announce);
+        //carRepository.save(car);
 
     }
 }

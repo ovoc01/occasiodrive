@@ -41,10 +41,7 @@ CREATE TABLE "car" (
                        "id_model" INT,
                         "id_transmission" INT ,
                        "id_fuel_type" INT ,
-                       "engine_power" double precision ,
-                       "registration" VARCHAR(50) UNIQUE,
-                       "manufacturing_year" INT,
-                       "mile_age" DOUBLE PRECISION
+                       "engine_power" double precision
 
 );
 
@@ -53,7 +50,7 @@ CREATE TABLE "announces" (
                              "description" varchar,
                              "date_announces" TIMESTAMP,
                              "status" INT DEFAULT 0,
-                             "id_car" INT,
+                             "id_car_announce" INT,
                              "selling_price" DOUBLE PRECISION,
                              "validation_date" DATE,
                              "id_person" INT
@@ -64,6 +61,15 @@ CREATE TABLE "transmission" (
                                 "name" varchar(50)
 );
 
+
+CREATE TABLE "car_announces" (
+                       "id_car_announces" SERIAL PRIMARY KEY,
+                        "id_car" INT,
+                       "registration" VARCHAR(50) UNIQUE,
+                       "manufacturing_year" INT,
+                       "mile_age" DOUBLE PRECISION
+
+);
 
 
 
@@ -78,7 +84,8 @@ ALTER TABLE "car" ADD FOREIGN KEY ("id_model") REFERENCES "model" ("id_model");
 ALTER TABLE "car" ADD FOREIGN KEY ("id_transmission") REFERENCES "transmission" ("id_transmission");
 ALTER TABLE "car" ADD FOREIGN KEY ("id_fuel_type") REFERENCES "fuel_type" ("id_fuel_type");
 
+alter table "car_announces" add foreign key ("id_car") references "car" ("id_car");
 
-ALTER TABLE "announces" ADD FOREIGN KEY ("id_car") REFERENCES "car" ("id_car");
+ALTER TABLE "announces" ADD FOREIGN KEY ("id_car_announce") REFERENCES "car_announces" ("id_car_announces");
 
 ALTER TABLE "announces" ADD FOREIGN KEY ("id_person") REFERENCES "person" ("id_person");
