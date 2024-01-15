@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.model.category.category;
+package com.cloud.ventevoiture.category;
 
 
 import com.cloud.ventevoiture.model.category.Category;

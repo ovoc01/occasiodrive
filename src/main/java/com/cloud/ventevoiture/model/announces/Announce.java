@@ -1,6 +1,5 @@
 package com.cloud.ventevoiture.model.announces;
 
-import com.cloud.ventevoiture.model.car.Car;
 import com.cloud.ventevoiture.model.user.Person;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,8 +30,8 @@ public class Announce {
     private Integer status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_car")
-    private Car idCar;
+    @JoinColumn(name = "id_car_announce")
+    private CarAnnounce idCarAnnounce;
 
     @Column(name = "selling_price")
     private Double sellingPrice;
@@ -43,6 +42,5 @@ public class Announce {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_person")
     private Person idPerson;
-
 
 }

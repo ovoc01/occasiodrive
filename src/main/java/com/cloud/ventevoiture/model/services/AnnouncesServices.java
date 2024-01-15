@@ -3,8 +3,6 @@ package com.cloud.ventevoiture.model.services;
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.announces.Announce;
-import com.cloud.ventevoiture.model.car.Car;
-import com.cloud.ventevoiture.model.car.Transmission;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 import com.cloud.ventevoiture.model.repository.CarRepository;
 import com.cloud.ventevoiture.model.repository.PersonRepository;
@@ -36,7 +34,7 @@ public class AnnouncesServices {
                 .status(0)
                 .dateAnnounces(Instant.now())
                 .validationDate(null)
-                .idCar(null)
+
                 .idPerson(person)
                 .build();
 

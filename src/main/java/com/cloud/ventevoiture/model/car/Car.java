@@ -1,16 +1,16 @@
 package com.cloud.ventevoiture.model.car;
 
+import com.cloud.ventevoiture.model.car.FuelType;
+import com.cloud.ventevoiture.model.car.Transmission;
 import com.cloud.ventevoiture.model.model.Model;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "car")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +31,5 @@ public class Car {
 
     @Column(name = "engine_power")
     private Double enginePower;
-
-    @Column(name = "registration", length = 50)
-    private String registration;
-
-    @Column(name = "manufacturing_year")
-    private Integer manufacturingYear;
-
-    @Column(name = "mile_age")
-    private Double mileAge;
 
 }
