@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.controller.category;
+package com.cloud.ventevoiture.category;
 
 
 import com.cloud.ventevoiture.model.category.Category;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/category")
+@RequestMapping("api/v1/categories")
 @CrossOrigin(origins = "*")
 public class CategoryController {
     private final CategoryRepository categoryRepository;
@@ -21,25 +21,22 @@ public class CategoryController {
     }
 
 
-
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/save")
+    @PostMapping
     public Category save(@RequestBody Category category){
         return categoryRepository.save(category);
     }
 
-
-
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
-    @GetMapping("/listAll")
+    @GetMapping
     public List<Category> listAll(){
         return categoryRepository.findAll();
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
-    @GetMapping("/findOne")
-    public Category findOne(@RequestParam int category_id){
-        return categoryRepository.findOne(category_id);
+    @GetMapping("/{id_category}")
+    public Category findOne(@PathVariable int id_category){
+        return categoryRepository.findOne(id_category);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
