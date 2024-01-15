@@ -1,6 +1,7 @@
 package com.cloud.ventevoiture.model.model;
 
 import com.cloud.ventevoiture.model.brand.Brand;
+import com.cloud.ventevoiture.model.category.Category;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +11,20 @@ public class Model {
     int id_model;
 
     @OneToOne
+    @JoinColumn(name="id_category")
+    Category category;
+    @OneToOne
     @JoinColumn(name = "id_brand")
     Brand brand;
     String model;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public int getId_model() {
         return id_model;
