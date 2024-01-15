@@ -40,30 +40,3 @@ insert into model values (default,3,7,'CX-80');
 insert into model values (default,5,2,'Xantia');
 
 
---insert assoc_model_engine_power
-insert into assoc_model_engine_power values (default,1,130);
-insert into assoc_model_engine_power values (default,1,125);
-insert into assoc_model_engine_power values (default,6,75);
-insert into assoc_model_engine_power values (default,2,150);
-insert into assoc_model_engine_power values (default,3,90);
-insert into assoc_model_engine_power values (default,4,99);
-insert into assoc_model_engine_power values (default,5,130);
-
---insert into assoc_model_transmission
-insert into assoc_model_transmission values (default,1,1);
-insert into assoc_model_transmission values (default,2,2);
-insert into assoc_model_transmission values (default,1,3);
-insert into assoc_model_transmission values (default,2,4);
-insert into assoc_model_transmission values (default,2,5);
-insert into assoc_model_transmission values (default,1,6);
-
---insert into assoc_model_fuel_type
-
-insert into assoc_model_fuel_type values (default,1,1);
-insert into assoc_model_fuel_type values (default,1,2);
-insert into assoc_model_fuel_type values (default,2,3);
-insert into assoc_model_fuel_type values (default,1,4);
-insert into assoc_model_fuel_type values (default,1,5);
-insert into assoc_model_fuel_type values (default,1,6);
-insert into assoc_model_fuel_type values (default,2,6);
-

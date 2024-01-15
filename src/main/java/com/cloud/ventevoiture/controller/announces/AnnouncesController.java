@@ -1,8 +1,6 @@
 package com.cloud.ventevoiture.controller.announces;
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
-import com.cloud.ventevoiture.model.announces.Announces;
-import com.cloud.ventevoiture.model.announces.FavoriteAnnounces;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
 import org.springframework.http.HttpStatus;

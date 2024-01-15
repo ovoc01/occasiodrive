@@ -20,7 +20,7 @@ public class FavoriteAnnounces {
 
     @ManyToOne
     @JoinColumn(name = "id_announces")
-    Announces announces;
+    Announce announces;
 
     public int getId_favorite() {
         return id_favorite;
@@ -38,11 +38,11 @@ public class FavoriteAnnounces {
         this.person = person;
     }
 
-    public Announces getAnnounces() {
+    public Announce getAnnounces() {
         return announces;
     }
 
-    public void setAnnounces(Announces announces) {
+    public void setAnnounces(Announce announces) {
         this.announces = announces;
     }
     
