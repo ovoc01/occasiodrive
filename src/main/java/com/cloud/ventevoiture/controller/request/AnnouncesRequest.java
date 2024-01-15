@@ -10,6 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnnouncesRequest {
     String description;
-    String dateAnnounces;
     Double sellingPrice;
+    Integer idModel;
+    Integer idTransmission;
+    Integer idFuelType;
+    Double enginePower;
+    String registration;
+    Integer manufacturingYear;
+    Double mileAge;
 }

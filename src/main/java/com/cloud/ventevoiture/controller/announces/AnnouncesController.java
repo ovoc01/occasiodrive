@@ -1,8 +1,12 @@
 package com.cloud.ventevoiture.controller.announces;
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
+import com.cloud.ventevoiture.model.announces.Announce;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
+import com.cloud.ventevoiture.model.services.AnnouncesServices;
+import com.cloud.ventevoiture.model.user.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +20,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/announces")
+@RequiredArgsConstructor
 public class AnnouncesController {
+
+    private final AnnouncesServices announcesServices;
     
     private final AnnouncesRepository announcesRepository;
 
-    public AnnouncesController(AnnouncesRepository announcesRepository) {
-        this.announcesRepository = announcesRepository;
-    }
+
 
 
     // @PostMapping()
@@ -35,7 +40,7 @@ public class AnnouncesController {
     @GetMapping
     public ResponseEntity<Object> findAll(){
         try {
-            List<Announces> annonces = announcesRepository.findAll();
+            List<Announce> annonces = announcesRepository.findAll();
             HashMap<String, Object> map = new HashMap<>();
             map.put("message", "success");
             map.put("listAnnounces", annonces);
@@ -48,6 +53,8 @@ public class AnnouncesController {
     @PostMapping
     public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
         HashMap<String ,Object> map = new HashMap<>();
+        User user = (User) auth.getPrincipal();
+        announcesServices.persist(announcesRequest,user);
        
         map.put("message","announces created");
         return ResponseEntity.ok(map);

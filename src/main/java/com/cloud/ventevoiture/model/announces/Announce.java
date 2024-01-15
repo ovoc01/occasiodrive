@@ -3,8 +3,7 @@ package com.cloud.ventevoiture.model.announces;
 import com.cloud.ventevoiture.model.car.Car;
 import com.cloud.ventevoiture.model.user.Person;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,6 +12,9 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "announces")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Announce {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +43,6 @@ public class Announce {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_person")
     private Person idPerson;
+
 
 }

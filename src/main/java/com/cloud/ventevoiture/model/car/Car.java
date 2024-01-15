@@ -2,13 +2,15 @@ package com.cloud.ventevoiture.model.car;
 
 import com.cloud.ventevoiture.model.model.Model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "car")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
