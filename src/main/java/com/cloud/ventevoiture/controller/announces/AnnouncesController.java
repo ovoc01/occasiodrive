@@ -37,7 +37,7 @@ public class AnnouncesController {
     //     return entity;
     // }
 
-/*    @GetMapping
+    @GetMapping
     public ResponseEntity<Object> findAll(){
         try {
             List<Announce> annonces = announcesRepository.findAll();
@@ -49,11 +49,6 @@ public class AnnouncesController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }*/
-
-    @GetMapping
-    public List<Announce> findAll(){
-        return announcesRepository.findAll();
     }
 
     @PostMapping
