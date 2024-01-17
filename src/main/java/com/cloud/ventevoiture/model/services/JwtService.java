@@ -48,6 +48,7 @@ public class JwtService {
 
          .setExpiration(new java.util.Date(System.currentTimeMillis()+1000*60*24))
 
+
          .signWith(getSigninKey(),SignatureAlgorithm.HS256)
          .compact();
    }

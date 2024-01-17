@@ -1,6 +1,6 @@
 package com.cloud.ventevoiture.model.repository;
 
-import com.cloud.ventevoiture.model.model.Model;
+import com.cloud.ventevoiture.model.entity.model.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

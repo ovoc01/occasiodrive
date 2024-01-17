@@ -1,6 +1,6 @@
 package com.cloud.ventevoiture.controller.dto;
 
-import com.cloud.ventevoiture.model.announces.Announce;
+import com.cloud.ventevoiture.model.entity.announces.Announce;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,11 +1,11 @@
 package com.cloud.ventevoiture.controller.announces;
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
-import com.cloud.ventevoiture.model.announces.Announce;
+import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
 import com.cloud.ventevoiture.model.services.AnnouncesServices;
-import com.cloud.ventevoiture.model.user.User;
+import com.cloud.ventevoiture.model.entity.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -2,12 +2,12 @@ package com.cloud.ventevoiture.model.services;
 
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
-import com.cloud.ventevoiture.model.announces.Announce;
+import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 import com.cloud.ventevoiture.model.repository.CarRepository;
 import com.cloud.ventevoiture.model.repository.PersonRepository;
-import com.cloud.ventevoiture.model.user.Person;
-import com.cloud.ventevoiture.model.user.User;
+import com.cloud.ventevoiture.model.entity.user.Person;
+import com.cloud.ventevoiture.model.entity.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

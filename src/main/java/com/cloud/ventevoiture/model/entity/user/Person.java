@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.model.user;
+package com.cloud.ventevoiture.model.entity.user;
 
 
 import jakarta.persistence.*;
