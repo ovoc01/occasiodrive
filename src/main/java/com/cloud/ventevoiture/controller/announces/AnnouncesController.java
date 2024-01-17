@@ -10,12 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -73,6 +75,22 @@ public class AnnouncesController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id")Integer id){
         return null;
+    }
+
+    @GetMapping("/{idAnnounces}/validate")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<Object> validate(@PathVariable("idAnnounces") Integer idAnnounces, Authentication auth) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            User user = (User) auth.getPrincipal();
+            announcesServices.valider(idAnnounces,user);
+            map.put("message","Annonces validez");
+            return ResponseEntity.ok(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(map);
+        }
     }
 
 
