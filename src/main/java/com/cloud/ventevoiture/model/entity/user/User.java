@@ -1,6 +1,5 @@
-package com.cloud.ventevoiture.model.user;
+package com.cloud.ventevoiture.model.entity.user;
 
-import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.cloud.ventevoiture.model.user.role.Role;
+import com.cloud.ventevoiture.model.entity.user.role.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

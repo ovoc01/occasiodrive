@@ -1,7 +1,7 @@
-package com.cloud.ventevoiture.model.model;
+package com.cloud.ventevoiture.model.entity.model;
 
-import com.cloud.ventevoiture.model.brand.Brand;
-import com.cloud.ventevoiture.model.category.Category;
+import com.cloud.ventevoiture.model.entity.brand.Brand;
+import com.cloud.ventevoiture.model.entity.category.Category;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 

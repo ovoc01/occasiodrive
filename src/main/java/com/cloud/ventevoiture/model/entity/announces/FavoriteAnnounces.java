@@ -1,6 +1,6 @@
-package com.cloud.ventevoiture.model.announces;
+package com.cloud.ventevoiture.model.entity.announces;
 
-import com.cloud.ventevoiture.model.user.Person;
+import com.cloud.ventevoiture.model.entity.user.Person;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

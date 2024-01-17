@@ -1,6 +1,6 @@
-package com.cloud.ventevoiture.model.announces;
+package com.cloud.ventevoiture.model.entity.announces;
 
-import com.cloud.ventevoiture.model.car.Car;
+import com.cloud.ventevoiture.model.entity.car.Car;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
