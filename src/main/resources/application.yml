@@ -1,8 +1,8 @@
 spring:
    datasource:
-      url: jdbc:postgresql://localhost:5432/vente_voiture_postgres
+      url: jdbc:postgresql://localhost:5432/vente_voiture
       username: postgres
-      password: nnnn
+      password: pixel
 
       driver-class-name: org.postgresql.Driver
    jpa:
