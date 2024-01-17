@@ -71,7 +71,6 @@ CREATE TABLE "car_announces" (
 
 );
 
-
 create table announces_log(
     id_announces_log serial primary key ,
     id_announce int references announces(id_announces),
