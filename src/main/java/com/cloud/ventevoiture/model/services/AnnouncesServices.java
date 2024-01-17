@@ -4,7 +4,7 @@ package com.cloud.ventevoiture.model.services;
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.entity.announces.AnnouncesLog;
-import com.cloud.ventevoiture.model.repository.AnnounceLogRepository;
+import com.cloud.ventevoiture.model.repository.AnnouncesLogRepository;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 import com.cloud.ventevoiture.model.repository.CarRepository;
 import com.cloud.ventevoiture.model.repository.PersonRepository;
@@ -24,8 +24,7 @@ public class AnnouncesServices {
     private final AnnouncesRepository announcesRepository;
     private final CarRepository carRepository;
     private final PersonRepository personRepository;
-    private final AnnounceLogRepository announceLogRepository;
-
+    private final AnnouncesLogRepository announceLogRepository;
 
     @Transactional
     public void persist(AnnouncesRequest request, User user){
@@ -47,7 +46,6 @@ public class AnnouncesServices {
         //carRepository.save(car);
 
     }
-
     @Transactional
     public void valider(Integer idAnnounces,User user){
         //TODO

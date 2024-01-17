@@ -26,21 +26,24 @@ import java.util.Map;
 public class AnnouncesController {
 
     private final AnnouncesServices announcesServices;
-
+    
     private final AnnouncesRepository announcesRepository;
+
+
 
 
     // @PostMapping()
     // public SomeEnityData postMethodName(@RequestBody SomeEnityData entity) {
     //     //TODO: process POST request
-
+        
     //     return entity;
     // }
 
     @GetMapping
-    public ResponseEntity<Object> findAll() {
+    public ResponseEntity<Object> findAll(){
         try {
             List<Announce> annonces = announcesRepository.findAll();
+            System.out.println(annonces);
             HashMap<String, Object> map = new HashMap<>();
             map.put("message", "success");
             map.put("listAnnounces", annonces);
@@ -51,25 +54,26 @@ public class AnnouncesController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> newAnnounces(Authentication auth, @RequestBody AnnouncesRequest announcesRequest) {
-        HashMap<String, Object> map = new HashMap<>();
+    public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
+        HashMap<String ,Object> map = new HashMap<>();
         User user = (User) auth.getPrincipal();
-        announcesServices.persist(announcesRequest, user);
-
-        map.put("message", "announces created");
+        announcesServices.persist(announcesRequest,user);
+       
+        map.put("message","announces created");
         return ResponseEntity.ok(map);
     }
 
 
-    @PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile file) {
+    @PostMapping(value = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
 
         return ResponseEntity.ok("okey");
     }
 
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Object> findById(@PathVariable("id")Integer id){
         return null;
     }
 

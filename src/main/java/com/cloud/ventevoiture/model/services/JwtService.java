@@ -20,6 +20,7 @@ public class JwtService {
    private static final String SECRET_KEY= "1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC";
 
    public String extractUsername(String token){
+      //Le subject du token est l'email de l'utilisateur
       return extractClaim(token, Claims::getSubject) ;
    }
 
@@ -43,7 +44,11 @@ public class JwtService {
          .setClaims(extraClaims)
          .setSubject(userDetails.getUsername())
          .setIssuedAt(new java.util.Date(System.currentTimeMillis()))
-         .setExpiration(new java.util.Date(System.currentTimeMillis()+10000*60*24))
+
+
+         .setExpiration(new java.util.Date(System.currentTimeMillis()+1000*60*24))
+
+
          .signWith(getSigninKey(),SignatureAlgorithm.HS256)
          .compact();
    }
