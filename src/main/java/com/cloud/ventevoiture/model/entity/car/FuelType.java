@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.model.car;
+package com.cloud.ventevoiture.model.entity.car;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

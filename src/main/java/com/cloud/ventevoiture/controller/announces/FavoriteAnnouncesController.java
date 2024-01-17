@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloud.ventevoiture.model.announces.FavoriteAnnounces;
+import com.cloud.ventevoiture.model.entity.announces.FavoriteAnnounces;
 import com.cloud.ventevoiture.model.repository.FavoriteAnnouncesRepository;
 
 @RestController

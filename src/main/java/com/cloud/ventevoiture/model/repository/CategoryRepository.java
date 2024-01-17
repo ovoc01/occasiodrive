@@ -1,6 +1,6 @@
 package com.cloud.ventevoiture.model.repository;
 
-import com.cloud.ventevoiture.model.category.Category;
+import com.cloud.ventevoiture.model.entity.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

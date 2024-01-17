@@ -1,7 +1,7 @@
 package com.cloud.ventevoiture.controller.category;
 
 
-import com.cloud.ventevoiture.model.category.Category;
+import com.cloud.ventevoiture.model.entity.category.Category;
 import com.cloud.ventevoiture.model.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

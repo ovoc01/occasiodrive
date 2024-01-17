@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.cloud.ventevoiture.model.announces.FavoriteAnnounces;
+import com.cloud.ventevoiture.model.entity.announces.FavoriteAnnounces;
 
 @Repository
 public interface FavoriteAnnouncesRepository extends JpaRepository<FavoriteAnnounces,Integer>{

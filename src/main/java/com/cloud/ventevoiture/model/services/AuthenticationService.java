@@ -4,12 +4,11 @@ import com.cloud.ventevoiture.controller.request.AuthenticationRequest;
 import com.cloud.ventevoiture.controller.request.RegistrationRequest;
 import com.cloud.ventevoiture.model.repository.PersonRepository;
 import com.cloud.ventevoiture.model.repository.UserRepository;
-import com.cloud.ventevoiture.model.user.Gender;
-import com.cloud.ventevoiture.model.user.Person;
-import com.cloud.ventevoiture.model.user.User;
-import com.cloud.ventevoiture.model.user.role.Role;
+import com.cloud.ventevoiture.model.entity.user.Gender;
+import com.cloud.ventevoiture.model.entity.user.Person;
+import com.cloud.ventevoiture.model.entity.user.User;
+import com.cloud.ventevoiture.model.entity.user.role.Role;
 import jakarta.transaction.Transactional;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,8 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor

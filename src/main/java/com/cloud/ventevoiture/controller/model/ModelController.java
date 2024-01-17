@@ -1,6 +1,6 @@
 package com.cloud.ventevoiture.controller.model;
 
-import com.cloud.ventevoiture.model.model.Model;
+import com.cloud.ventevoiture.model.entity.model.Model;
 import com.cloud.ventevoiture.model.repository.ModelRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

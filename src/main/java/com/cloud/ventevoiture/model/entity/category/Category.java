@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.model.category;
+package com.cloud.ventevoiture.model.entity.category;
 
 
 import jakarta.persistence.*;
