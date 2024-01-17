@@ -1,5 +1,6 @@
 package com.cloud.ventevoiture.model.car;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,7 +9,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "transmission")
-
 public class Transmission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

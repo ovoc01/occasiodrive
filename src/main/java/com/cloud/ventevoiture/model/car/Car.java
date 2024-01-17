@@ -17,15 +17,15 @@ public class Car {
     @Column(name = "id_car", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_model")
     private Model idModel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_transmission")
     private Transmission idTransmission;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_fuel_type")
     private FuelType idFuelType;
 

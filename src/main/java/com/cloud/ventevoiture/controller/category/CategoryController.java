@@ -1,4 +1,4 @@
-package com.cloud.ventevoiture.category;
+package com.cloud.ventevoiture.controller.category;
 
 
 import com.cloud.ventevoiture.model.category.Category;
@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/categories")
-@CrossOrigin(origins = "*")
 public class CategoryController {
     private final CategoryRepository categoryRepository;
 
