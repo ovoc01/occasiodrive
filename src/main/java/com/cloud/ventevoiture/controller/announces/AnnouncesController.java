@@ -37,10 +37,11 @@ public class AnnouncesController {
     //     return entity;
     // }
 
-    @GetMapping
+/*    @GetMapping
     public ResponseEntity<Object> findAll(){
         try {
             List<Announce> annonces = announcesRepository.findAll();
+            System.out.println(annonces);
             HashMap<String, Object> map = new HashMap<>();
             map.put("message", "success");
             map.put("listAnnounces", annonces);
@@ -48,6 +49,11 @@ public class AnnouncesController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }*/
+
+    @GetMapping
+    public List<Announce> findAll(){
+        return announcesRepository.findAll();
     }
 
     @PostMapping
