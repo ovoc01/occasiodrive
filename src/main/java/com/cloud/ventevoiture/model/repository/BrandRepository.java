@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, String> {
+public interface BrandRepository extends JpaRepository<Brand, Integer> {
     @Query(value = "Select * from brand where id_brand = :id_brand" ,nativeQuery = true)
     public Brand findOne(@Param("id_brand") int id_brand);
 

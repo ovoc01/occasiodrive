@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ModelRepository extends JpaRepository<Model, String> {
+public interface ModelRepository extends JpaRepository<Model, Integer> {
     @Query(value = "Select * from model where id_model = :id_model" ,nativeQuery = true)
     public Model findOne(@Param("id_model") int id_model);
 
