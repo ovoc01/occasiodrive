@@ -29,7 +29,7 @@ public class Announce {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_car_announce")
     private CarAnnounce idCarAnnounce;
 
@@ -39,7 +39,7 @@ public class Announce {
     @Column(name = "validation_date")
     private LocalDate validationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_person")
     private Person idPerson;
 

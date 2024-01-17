@@ -2,9 +2,11 @@ package com.cloud.ventevoiture.model.model;
 
 import com.cloud.ventevoiture.model.brand.Brand;
 import com.cloud.ventevoiture.model.category.Category;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

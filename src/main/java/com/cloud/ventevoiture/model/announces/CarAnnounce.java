@@ -15,7 +15,7 @@ public class CarAnnounce {
     @Column(name = "id_car_announces", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_car")
     private Car idCar;
 

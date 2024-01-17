@@ -40,3 +40,13 @@ insert into model values (default,3,7,'CX-80');
 insert into model values (default,5,2,'Xantia');
 
 
+--insert car
+insert into car values (default,1,1,1,130);
+
+--insert into car_announces
+
+insert into car_announces values (default,1,'2880 TAB',2004,90000);
+
+--insert into announces
+insert into announces values (default,'This is a description',now(),0,1,4000,null,1);
+
