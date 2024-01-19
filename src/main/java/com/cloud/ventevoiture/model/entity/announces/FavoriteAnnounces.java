@@ -3,6 +3,8 @@ package com.cloud.ventevoiture.model.entity.announces;
 import com.cloud.ventevoiture.model.entity.user.Person;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,6 +15,7 @@ import jakarta.persistence.Table;
 public class FavoriteAnnounces {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id_favorite;
     @ManyToOne
     @JoinColumn(name = "id_person")
