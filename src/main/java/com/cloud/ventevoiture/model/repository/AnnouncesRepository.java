@@ -1,7 +1,6 @@
 package com.cloud.ventevoiture.model.repository;
 
 import com.cloud.ventevoiture.model.entity.announces.Announce;
-import com.cloud.ventevoiture.model.entity.announces.FavoriteAnnounces;
 
 import java.util.List;
 

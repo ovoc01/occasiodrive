@@ -11,6 +11,7 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_brand;
     String brand;
+    
 
     public int getId_brand() {
         return id_brand;

@@ -2,7 +2,6 @@ package com.cloud.ventevoiture.controller.announces;
 
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.entity.announces.Announce;
-import com.cloud.ventevoiture.model.entity.announces.FavoriteAnnounces;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
 import com.cloud.ventevoiture.model.services.AnnouncesServices;
