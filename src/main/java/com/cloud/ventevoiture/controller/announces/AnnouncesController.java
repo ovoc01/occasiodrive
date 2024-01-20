@@ -53,6 +53,23 @@ public class AnnouncesController {
         }
     }
 
+    @GetMapping("/{id_person}/person")
+    public ResponseEntity<Object> findByPerson(@PathVariable int id_person) {
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            List<Announce> an = (List<Announce>) announcesRepository.findByIdPerson(id_person);
+            if (an.isEmpty()) {
+                return new ResponseEntity<>("No announcements found for the specified person.", HttpStatus.NOT_FOUND);
+            }
+            map.put("message", "success");
+            map.put("listAnnounces", an);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while processing the request.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
     @PostMapping
     public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
         HashMap<String ,Object> map = new HashMap<>();

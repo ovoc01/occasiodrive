@@ -71,7 +71,13 @@ CREATE TABLE "car_announces" (
 
 );
 
-
+create table announces_log(
+    id_announces_log serial primary key ,
+    id_announce int references announces(id_announces),
+    status int not null ,
+    id_person int references person(id_person),
+    date date default now()
+);
 
 
 ALTER TABLE "model" ADD FOREIGN KEY ("id_category") REFERENCES "category" ("id_category");
