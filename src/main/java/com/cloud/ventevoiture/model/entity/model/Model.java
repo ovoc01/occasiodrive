@@ -12,10 +12,10 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_model;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="id_category")
     Category category;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_brand")
     Brand brand;
     String model;
