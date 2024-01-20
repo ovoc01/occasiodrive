@@ -1,9 +1,9 @@
 package com.cloud.ventevoiture.model.entity.brand;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.cloud.ventevoiture.model.entity.model.Model;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Brand {
@@ -11,7 +11,18 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_brand;
     String brand;
-    
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_brand")
+    private List<Model> models;
+
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
 
     public int getId_brand() {
         return id_brand;
