@@ -2,6 +2,7 @@ package com.cloud.ventevoiture.controller.statistique;
 
 import com.cloud.ventevoiture.model.entity.statistique.AnnonceParMois;
 import com.cloud.ventevoiture.model.repository.AnnonceParMoisRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class AnnonceParMoisController {
         this.annonceParMoisRepository = annonceParMoisRepository;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public List<AnnonceParMois> findAll(){
         return annonceParMoisRepository.findAll();
