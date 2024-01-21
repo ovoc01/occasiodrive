@@ -6,27 +6,35 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_model;
 
-    @OneToOne
-    @JoinColumn(name="id_category")
-    Category category;
-    @OneToOne
+ @ManyToMany
+    @JoinTable(
+            name = "model_category",
+            joinColumns = {@JoinColumn(name = "id_model")},
+            inverseJoinColumns = {@JoinColumn(name = "id_category")}
+    )
+    private Set<Category> categories;
+    
+
+    @ManyToOne
     @JoinColumn(name = "id_brand")
-    @JsonBackReference
+    @JsonIgnoreProperties("models")
     Brand brand;
     String model;
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public int getId_model() {
