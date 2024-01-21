@@ -3,6 +3,7 @@ package com.cloud.ventevoiture.configuration;
 import com.cloud.ventevoiture.configuration.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +28,9 @@ public class SecurityConfiguration {
                .csrf(csrf -> csrf
                        .disable())
                .authorizeHttpRequests(requests -> requests
-                       .requestMatchers("/api/v1/auth/**","/api/v1/announces/**")
+                       .requestMatchers(HttpMethod.POST,"/api/v1/auth/**")
+                       .permitAll()
+                       .requestMatchers(HttpMethod.GET,"/api/v1/announces/**")
                        .permitAll()
                        .anyRequest()
                        .authenticated())
