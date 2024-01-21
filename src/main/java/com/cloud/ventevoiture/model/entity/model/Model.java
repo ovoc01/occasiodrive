@@ -14,14 +14,20 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_model;
 
-    @ManyToMany
+ @ManyToMany
     @JoinTable(
             name = "model_category",
             joinColumns = {@JoinColumn(name = "id_model")},
             inverseJoinColumns = {@JoinColumn(name = "id_category")}
     )
     private Set<Category> categories;
-    @OneToOne
+    
+    @ManyToOne
+    @JoinColumn(name="id_category")
+    Category category;
+
+
+    @ManyToOne
     @JoinColumn(name = "id_brand")
     @JsonIgnoreProperties("models")
     Brand brand;
