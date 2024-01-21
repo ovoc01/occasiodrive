@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class gitBrand {
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_brand;
