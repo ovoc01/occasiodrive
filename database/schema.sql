@@ -80,6 +80,13 @@ create table announces_log(
 );
 
 
+create table model_category(
+    id_model_category serial primary key ,
+    id_model int references model(id_model),
+    id_category int references category(id_category)
+);
+
+
 ALTER TABLE "model" ADD FOREIGN KEY ("id_category") REFERENCES "category" ("id_category");
 
 ALTER TABLE "person_user" ADD FOREIGN KEY ("id_person") REFERENCES "person" ("id_person");
