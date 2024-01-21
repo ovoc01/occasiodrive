@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,11 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-   private static final String SECRET_KEY= "1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC";
+
+   @Value("${jwt.secretKey}")
+   private  String SECRET_KEY;
+   @Value("${jwt.tokenLifeSpan}")
+    private int tokenLifeSpan;
 
    public String extractUsername(String token){
       //Le subject du token est l'email de l'utilisateur
@@ -39,16 +44,14 @@ public class JwtService {
    }
 
    public String generateToken(Map<String,Object> extraClaims,UserDetails userDetails){
+      Date now = new Date();
+      Date expirationDate = new Date(now.getTime()+tokenLifeSpan);
       return Jwts
          .builder()
          .setClaims(extraClaims)
          .setSubject(userDetails.getUsername())
-         .setIssuedAt(new java.util.Date(System.currentTimeMillis()))
-
-
-         .setExpiration(new java.util.Date(System.currentTimeMillis()+1000*60*24))
-
-
+         .setIssuedAt(now)
+         .setExpiration(expirationDate)
          .signWith(getSigninKey(),SignatureAlgorithm.HS256)
          .compact();
    }

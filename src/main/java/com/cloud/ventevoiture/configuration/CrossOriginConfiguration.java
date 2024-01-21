@@ -11,6 +11,7 @@ public class CrossOriginConfiguration implements WebMvcConfigurer{
                 .addMapping("/**")
                 .allowedMethods("*")
                 .allowedOrigins("*")
+                .allowedHeaders("*")
         ;
     }
 }
