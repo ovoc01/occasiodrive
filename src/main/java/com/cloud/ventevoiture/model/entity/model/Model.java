@@ -22,10 +22,6 @@ public class Model {
     )
     private Set<Category> categories;
     
-    @ManyToOne
-    @JoinColumn(name="id_category")
-    Category category;
-
 
     @ManyToOne
     @JoinColumn(name = "id_brand")
