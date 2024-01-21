@@ -16,13 +16,11 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
 server:
-<<<<<<< Updated upstream
   port: 8080
-=======
-   port: 8080
+
 
 jwt:
    tokenLifeSpan: 86400000 # 24 hours in milliseconds
    secretKey: "1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC"
 
->>>>>>> Stashed changes
+
