@@ -2,30 +2,39 @@ package com.cloud.ventevoiture.model.entity.model;
 
 import com.cloud.ventevoiture.model.entity.brand.Brand;
 import com.cloud.ventevoiture.model.entity.category.Category;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id_model;
 
-    @ManyToOne
-    @JoinColumn(name="id_category")
-    Category category;
+ @ManyToMany
+    @JoinTable(
+            name = "model_category",
+            joinColumns = {@JoinColumn(name = "id_model")},
+            inverseJoinColumns = {@JoinColumn(name = "id_category")}
+    )
+    private Set<Category> categories;
+    
+
     @ManyToOne
     @JoinColumn(name = "id_brand")
+    @JsonIgnoreProperties("models")
     Brand brand;
     String model;
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public int getId_model() {
