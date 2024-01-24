@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://monorail.proxy.rlwy.net:36820/railway
+    url: jdbc:postgresql://localhost:5432/vente_voiture
     username: postgres
-    password: daGf2g5fF63dFebDEda*CfBEag3EG-gG
+    password: pixel
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -21,6 +21,4 @@ server:
 
 jwt:
    tokenLifeSpan: 86400000 # 24 hours in milliseconds
-   secretKey: "1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC"
-
-
+   secretKey: 1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC

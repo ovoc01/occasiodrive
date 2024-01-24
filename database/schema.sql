@@ -87,6 +87,17 @@ create table model_category(
 );
 
 
+
+
+create table model_category_motorisation(
+    id_model_category_motorisation serial primary key ,
+    id_model_category int references model_category(id_model_category),
+    engine_power double precision,
+    description varchar(50)
+);
+
+
+
 ALTER TABLE "model" ADD FOREIGN KEY ("id_category") REFERENCES "category" ("id_category");
 
 ALTER TABLE "person_user" ADD FOREIGN KEY ("id_person") REFERENCES "person" ("id_person");
