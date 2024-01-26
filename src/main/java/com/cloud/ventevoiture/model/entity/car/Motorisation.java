@@ -10,11 +10,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "model_category_motorisation")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Motorisation {
 
 

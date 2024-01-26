@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +21,7 @@ public class FileUploadService {
       return baos.toByteArray();
    }
 
+
    public String decompressBase64Image(byte[] compressedImage) throws UnsupportedEncodingException, IOException{
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Deflater decompresser = new Deflater(Deflater.BEST_COMPRESSION,true);
@@ -30,5 +30,4 @@ public class FileUploadService {
       dos.close();
       return baos.toString("UTF-8");
    }
-
 }

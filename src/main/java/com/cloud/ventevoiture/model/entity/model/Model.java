@@ -5,11 +5,17 @@ import com.cloud.ventevoiture.model.entity.category.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
