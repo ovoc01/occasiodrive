@@ -6,7 +6,7 @@ import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.entity.announces.AnnouncesLog;
 import com.cloud.ventevoiture.model.repository.AnnouncesLogRepository;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
-import com.cloud.ventevoiture.model.repository.CarRepository;
+
 import com.cloud.ventevoiture.model.repository.PersonRepository;
 import com.cloud.ventevoiture.model.entity.user.Person;
 import com.cloud.ventevoiture.model.entity.user.User;
@@ -22,7 +22,6 @@ import java.time.LocalDate;
 public class AnnouncesServices {
 
     private final AnnouncesRepository announcesRepository;
-    private final CarRepository carRepository;
     private final PersonRepository personRepository;
     private final AnnouncesLogRepository announceLogRepository;
 
@@ -37,8 +36,7 @@ public class AnnouncesServices {
                 .status(0)
                 .dateAnnounces(Instant.now())
                 .validationDate(null)
-
-                .idPerson(person)
+                .person(person)
                 .build();
 
         System.out.println(announce);
@@ -62,4 +60,6 @@ public class AnnouncesServices {
                 .build();
         announceLogRepository.save(log);
     }
+
+    
 }

@@ -11,11 +11,14 @@ import lombok.NoArgsConstructor;
 public class AnnouncesRequest {
     String description;
     Double sellingPrice;
+    String[] base64Images;
+    Integer idBrand;
     Integer idModel;
+    Integer idCategory;
+    Integer idMotorisation;
     Integer idTransmission;
+    Integer idVersion;
     Integer idFuelType;
-    Double enginePower;
     String registration;
-    Integer manufacturingYear;
     Double mileAge;
 }

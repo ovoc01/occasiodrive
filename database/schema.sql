@@ -97,6 +97,31 @@ create table model_category_motorisation(
 );
 
 
+create table version(
+    id_version serial primary key ,
+    intitule varchar(100)
+);
+
+create table motorisation_version(
+    id_motorisation_version serial primary key ,
+    id_version int references version(id_version),
+    id_motorisation int references model_category_motorisation(id_model_category_motorisation),
+    details varchar(500)
+);
+
+create table motorisation_transmission(
+    id_motorisation_transmission serial primary key ,
+    id_motorisation int references model_category_motorisation(id_model_category_motorisation),
+    id_transmission int references motorisation_version
+);
+
+create table motorisation_fuel_type(
+    id_motorisation_fuel_type serial primary key ,
+    id_motorisation int references  model_category_motorisation(id_model_category_motorisation),
+    id_fuel_type int references  fuel_type (id_fuel_type)
+);
+
+
 
 ALTER TABLE "model" ADD FOREIGN KEY ("id_category") REFERENCES "category" ("id_category");
 

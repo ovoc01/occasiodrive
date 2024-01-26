@@ -6,6 +6,7 @@ import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
 import com.cloud.ventevoiture.model.services.AnnouncesServices;
+import com.cloud.ventevoiture.model.services.file.FileUploadService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -28,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/api/v1/announces")
 @RequiredArgsConstructor
@@ -39,19 +39,17 @@ public class AnnouncesController {
     private final AnnouncesRepository announcesRepository;
 
     private final EntityManager entityManager;
-
-
-
+    private final FileUploadService fileUploadService;
 
     // @PostMapping()
     // public SomeEnityData postMethodName(@RequestBody SomeEnityData entity) {
-    //     //TODO: process POST request
+    // //TODO: process POST request
 
-    //     return entity;
+    // return entity;
     // }
 
     @GetMapping
-    public ResponseEntity<Object> findAll(){
+    public ResponseEntity<Object> findAll() {
         try {
             List<Announce> annonces = announcesRepository.findAll();
             System.out.println(annonces);
@@ -76,32 +74,29 @@ public class AnnouncesController {
             map.put("listAnnounces", an);
             return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("An error occurred while processing the request.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("An error occurred while processing the request.",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-
     @PostMapping
-    public ResponseEntity<Object> newAnnounces(Authentication auth,@RequestBody AnnouncesRequest announcesRequest){
-        HashMap<String ,Object> map = new HashMap<>();
+    public ResponseEntity<Object> newAnnounces(Authentication auth, @RequestBody AnnouncesRequest announcesRequest) {
+        HashMap<String, Object> map = new HashMap<>();
         User user = (User) auth.getPrincipal();
-        announcesServices.persist(announcesRequest,user);
+        announcesServices.persist(announcesRequest, user);
 
-        map.put("message","announces created");
+        map.put("message", "announces created");
         return ResponseEntity.ok(map);
     }
 
-
-    @PostMapping(value = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
+    @PostMapping(value = "/upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<Object> upload(@RequestParam MultipartFile file) {
 
         return ResponseEntity.ok("okey");
     }
 
-
-
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable("id")Integer id){
+    public ResponseEntity<Object> findById(@PathVariable("id") Integer id) {
         return null;
     }
 
@@ -111,8 +106,8 @@ public class AnnouncesController {
         Map<String, Object> map = new HashMap<>();
         try {
             User user = (User) auth.getPrincipal();
-            announcesServices.valider(idAnnounces,user);
-            map.put("message","Annonces validez");
+            announcesServices.valider(idAnnounces, user);
+            map.put("message", "Annonces validez");
             return ResponseEntity.ok(map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +115,6 @@ public class AnnouncesController {
             return ResponseEntity.badRequest().body(map);
         }
     }
-
 
     @GetMapping("/advancedSearch")
     public ResponseEntity<Object> advancedSearch(@RequestBody AdvancedSearchRequest advancedSearchRequest) {
@@ -132,17 +126,22 @@ public class AnnouncesController {
 
             Announce announce = new Announce();
 
-            announce.searchByKeyword(advancedSearchRequest.getKeyword(), predicates,builder, root);
-            announce.searchByDateAnnounce(advancedSearchRequest.getDateAnnounceMin(), advancedSearchRequest.getDateAnnounceMax(),predicates,builder, root);
-            announce.searchByModel(advancedSearchRequest.getModel(), predicates,builder, root);
-            announce.searchByCategory(advancedSearchRequest.getCategory(), predicates,builder, root);
-            announce.searchByBrand(advancedSearchRequest.getBrand(), predicates,builder, root);
-            announce.searchByTransmission(advancedSearchRequest.getTransmission(), predicates,builder, root);
-            announce.searchByFuelType(advancedSearchRequest.getFuelType(), predicates,builder, root);
-            announce.searchByEnginePower(advancedSearchRequest.getEnginePowerMin(), advancedSearchRequest.getEnginePowerMax(),predicates,builder, root);
-            announce.searchByManufacturingYear(advancedSearchRequest.getManufacturingYearMin(),advancedSearchRequest.getManufacturingYearMax() , predicates,builder, root);
-            announce.searchByMileAge(advancedSearchRequest.getMileAgeMin(), advancedSearchRequest.getMileAgeMax(), predicates,builder, root);
-            announce.searchBySellingPrice(advancedSearchRequest.getSellingPriceMin(),advancedSearchRequest.getSellingPriceMax(), predicates,builder, root);
+            announce.searchByKeyword(advancedSearchRequest.getKeyword(), predicates, builder, root);
+            announce.searchByDateAnnounce(advancedSearchRequest.getDateAnnounceMin(),
+                    advancedSearchRequest.getDateAnnounceMax(), predicates, builder, root);
+            announce.searchByModel(advancedSearchRequest.getModel(), predicates, builder, root);
+            announce.searchByCategory(advancedSearchRequest.getCategory(), predicates, builder, root);
+            announce.searchByBrand(advancedSearchRequest.getBrand(), predicates, builder, root);
+            announce.searchByTransmission(advancedSearchRequest.getTransmission(), predicates, builder, root);
+            announce.searchByFuelType(advancedSearchRequest.getFuelType(), predicates, builder, root);
+            announce.searchByEnginePower(advancedSearchRequest.getEnginePowerMin(),
+                    advancedSearchRequest.getEnginePowerMax(), predicates, builder, root);
+            announce.searchByManufacturingYear(advancedSearchRequest.getManufacturingYearMin(),
+                    advancedSearchRequest.getManufacturingYearMax(), predicates, builder, root);
+            announce.searchByMileAge(advancedSearchRequest.getMileAgeMin(), advancedSearchRequest.getMileAgeMax(),
+                    predicates, builder, root);
+            announce.searchBySellingPrice(advancedSearchRequest.getSellingPriceMin(),
+                    advancedSearchRequest.getSellingPriceMax(), predicates, builder, root);
 
             query.where(predicates.toArray(new Predicate[0]));
 
@@ -158,5 +157,19 @@ public class AnnouncesController {
         }
     }
 
+    @PostMapping("/upload")
+    public ResponseEntity<Object> upload() {
+        try {
+            String base64Image = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVDhPYxgFJYwMDAwMjIwMjIwM";
+            byte[] compressedImage = fileUploadService.compressBase64Image(base64Image);
+            Map<String, Object> responseMap = new HashMap<>();
+            //responseMap.put("message", "success");
+            responseMap.put("compressedImg", compressedImage);
+            responseMap.put("decompressedImg", fileUploadService.decompressBase64Image(compressedImage));
+            return new ResponseEntity<>(responseMap, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

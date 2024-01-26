@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BrandController {
     private final BrandRepository brandRepository;
-    private final BrandService service;
+    private final BrandService brandService;
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -34,7 +34,8 @@ public class BrandController {
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
     @GetMapping
     public List<Brand> listAll(){
-        return  service.findAll();
+        
+        return  brandService.initAllNeededProps();
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")

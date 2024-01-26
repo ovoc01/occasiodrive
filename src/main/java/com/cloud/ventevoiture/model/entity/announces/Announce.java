@@ -34,8 +34,8 @@ public class Announce {
     private Integer status;
 
     @ManyToOne
-    @JoinColumn(name = "id_car_announce")
-    private CarAnnounce idCarAnnounce;
+    @JoinColumn(name = "id_car")
+    private Car car;
 
     @Column(name = "selling_price")
     private Double sellingPrice;
@@ -45,7 +45,7 @@ public class Announce {
 
     @ManyToOne
     @JoinColumn(name = "id_person")
-    private Person idPerson;
+    private Person person;
 
     public void searchByKeyword(String keyword, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (keyword != null) {

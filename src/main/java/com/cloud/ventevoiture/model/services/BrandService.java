@@ -4,6 +4,7 @@ import com.cloud.ventevoiture.model.entity.brand.Brand;
 import com.cloud.ventevoiture.model.entity.car.Motorisation;
 import com.cloud.ventevoiture.model.entity.category.Category;
 import com.cloud.ventevoiture.model.repository.BrandRepository;
+import com.cloud.ventevoiture.model.repository.FuelTypeRepository;
 import com.cloud.ventevoiture.model.repository.ModelRepository;
 import com.cloud.ventevoiture.model.repository.TransmissionRepository;
 import com.cloud.ventevoiture.model.repository.VersionRepository;
@@ -22,8 +23,9 @@ public class BrandService {
     private final CategoryService categoryService;
     private final VersionRepository versionRepository;
     private final TransmissionRepository transmissionRepository;
+    private final FuelTypeRepository fuelTypeRepository;
 
-    public List<Brand> findAll() {
+    public List<Brand> initAllNeededProps() {
 
         List<Brand> brands = brandRepository.findAll();
         for (Brand brand : brands) {
@@ -37,10 +39,16 @@ public class BrandService {
                         Motorisation motorisation = category.getMotorisations().get(k);
                         motorisation.setVersions(versionRepository.findVersionByMotorisationId(motorisation.getIdMotorisation()));
                         motorisation.setTransmissions(transmissionRepository.findTransmissionByMotorisationId(motorisation.getIdMotorisation()));
+                        motorisation.setFuelTypes(fuelTypeRepository.findFuelTypeByMotorisationId(motorisation.getIdMotorisation()));
                     }
                 }
             }
         }
         return brands;
+    }
+
+
+    public List<Brand> findAll(){
+        return this.brandRepository.findAll();
     }
 }

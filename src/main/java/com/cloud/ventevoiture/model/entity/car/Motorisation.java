@@ -36,6 +36,9 @@ public class Motorisation {
     @Transient
     List<Transmission> transmissions;
 
+    @Transient
+    List<FuelType> fuelTypes;
+
 
    @JsonProperty("fullDescription")
     public String getFullDescription() {
@@ -54,4 +57,8 @@ public class Motorisation {
         return this.transmissions;
     }
 
+    @JsonProperty("fuelTypes")
+    public List<FuelType> getFuelTypes(){
+        return this.fuelTypes;
+    }
 }
