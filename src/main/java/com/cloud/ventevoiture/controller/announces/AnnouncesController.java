@@ -41,12 +41,7 @@ public class AnnouncesController {
     private final EntityManager entityManager;
     private final FileUploadService fileUploadService;
 
-    // @PostMapping()
-    // public SomeEnityData postMethodName(@RequestBody SomeEnityData entity) {
-    // //TODO: process POST request
-
-    // return entity;
-    // }
+    
 
     @GetMapping
     public ResponseEntity<Object> findAll() {
@@ -63,11 +58,35 @@ public class AnnouncesController {
     }
 
     @GetMapping("/{id_person}/person")
-    public ResponseEntity<Object> findByPerson(@PathVariable int id_person) {
+    public ResponseEntity<Object> findByPerson(@PathVariable int id_person,Authentication authentication) {
         HashMap<String, Object> map = new HashMap<>();
+
         try {
+            User user = (User) authentication.getPrincipal();
             List<Announce> an = (List<Announce>) announcesRepository.findByIdPerson(id_person);
             if (an.isEmpty()) {
+                map.put("message", "Pas d'annonces trouvé pour cette utilisateur");
+                return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            }
+            map.put("message", "success");
+            map.put("listAnnounces", an);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while processing the request.",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/person")
+    public ResponseEntity<Object> findByAuth(Authentication authentication) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            User user = (User) authentication.getPrincipal();
+            List<Announce> an = (List<Announce>) announcesServices.findByUser(user);
+            if (an.isEmpty()) {
+
                 return new ResponseEntity<>("No announcements found for the specified person.", HttpStatus.NOT_FOUND);
             }
             map.put("message", "success");
@@ -79,6 +98,7 @@ public class AnnouncesController {
         }
     }
 
+    
     @PostMapping
     public ResponseEntity<Object> newAnnounces(Authentication auth, @RequestBody AnnouncesRequest announcesRequest) {
         HashMap<String, Object> map = new HashMap<>();
@@ -163,7 +183,6 @@ public class AnnouncesController {
             String base64Image = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVDhPYxgFJYwMDAwMjIwMjIwM";
             byte[] compressedImage = fileUploadService.compressBase64Image(base64Image);
             Map<String, Object> responseMap = new HashMap<>();
-            //responseMap.put("message", "success");
             responseMap.put("compressedImg", compressedImage);
             responseMap.put("decompressedImg", fileUploadService.decompressBase64Image(compressedImage));
             return new ResponseEntity<>(responseMap, HttpStatus.OK);

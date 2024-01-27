@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -80,6 +81,14 @@ public class AnnouncesServices {
                 .idPerson(user.getPerson().getIdPerson())
                 .build();
         announceLogRepository.save(log);
+    }
+
+
+
+    public List<Announce> findByUser(User user){
+        Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
+        return this.announcesRepository.findByIdPerson(person.getIdPerson());
+
     }
 
     
