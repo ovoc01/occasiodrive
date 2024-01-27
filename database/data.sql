@@ -996,12 +996,13 @@ COPY public.motorisation_transmission (id_motorisation_transmission, id_motorisa
 --
 -- Data for Name: motorisation_version; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+insert into public.favorite_announces values
+    (1,2,1);
 
 COPY public.motorisation_version (id_motorisation_version, id_version, id_motorisation, details) FROM stdin;
 1	1	1	sportif avec intérieur raffiné
 2	2	1	C'est super puissant
 \.
-
 
 --
 -- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
