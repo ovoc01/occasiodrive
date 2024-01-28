@@ -5,10 +5,17 @@ import com.cloud.ventevoiture.model.entity.category.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +27,9 @@ public class Model {
             joinColumns = {@JoinColumn(name = "id_model")},
             inverseJoinColumns = {@JoinColumn(name = "id_category")}
     )
-    private Set<Category> categories;
+    private List<Category> categories;
+
+
     
 
     @ManyToOne
@@ -29,11 +38,11 @@ public class Model {
     Brand brand;
     String model;
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 

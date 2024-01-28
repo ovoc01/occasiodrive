@@ -87,6 +87,42 @@ create table model_category(
 );
 
 
+
+
+create table model_category_motorisation(
+    id_model_category_motorisation serial primary key ,
+    id_model_category int references model_category(id_model_category),
+    engine_power double precision,
+    description varchar(50)
+);
+
+
+create table version(
+    id_version serial primary key ,
+    intitule varchar(100)
+);
+
+create table motorisation_version(
+    id_motorisation_version serial primary key ,
+    id_version int references version(id_version),
+    id_motorisation int references model_category_motorisation(id_model_category_motorisation),
+    details varchar(500)
+);
+
+create table motorisation_transmission(
+    id_motorisation_transmission serial primary key ,
+    id_motorisation int references model_category_motorisation(id_model_category_motorisation),
+    id_transmission int references motorisation_version
+);
+
+create table motorisation_fuel_type(
+    id_motorisation_fuel_type serial primary key ,
+    id_motorisation int references  model_category_motorisation(id_model_category_motorisation),
+    id_fuel_type int references  fuel_type (id_fuel_type)
+);
+
+
+
 ALTER TABLE "model" ADD FOREIGN KEY ("id_category") REFERENCES "category" ("id_category");
 
 ALTER TABLE "person_user" ADD FOREIGN KEY ("id_person") REFERENCES "person" ("id_person");

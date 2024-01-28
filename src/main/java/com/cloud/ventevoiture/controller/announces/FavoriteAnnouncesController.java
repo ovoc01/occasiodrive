@@ -47,9 +47,8 @@ public class FavoriteAnnouncesController {
             map.put("message", "Save Favorite Announces successfully");
             return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            // TODO: handle exception
-            // return ResponseEntity.ok().body(e.getMessage());
         }
         
     }
