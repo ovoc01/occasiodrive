@@ -13,9 +13,8 @@ create or replace view v_motorisation_version as
             join public.version v on mv.id_version = v.id_version
 
 
-
 create or replace view v_motorisation_fuel_type as
     select mft.id_motorisation_fuel_type,mft.id_motorisation,ft.*
         from
             motorisation_fuel_type mft
-        join public.fuel
+        join public.fuel;
