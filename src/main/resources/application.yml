@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/vente_voiture
     username: postgres
-    password: postgre
+    password: megane
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,6 +15,14 @@ spring:
 
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
+  main:
+    allow-bean-definition-overriding: true
+
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:mwjiRZ1nmwvy0z84@cluster0.zryrffw.mongodb.net/vente_voiture?retryWrites=true&w=majority
+
+
 server:
   port: 8080
 
@@ -23,5 +31,4 @@ jwt:
    tokenLifeSpan: 86400000 # 24 hours in milliseconds
    secretKey: 1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC
 
-
-
+  
