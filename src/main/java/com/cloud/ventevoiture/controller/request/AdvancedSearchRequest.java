@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AdvancedSearchRequest {
     String keyword;
-    Instant DateAnnounceMin;
-    Instant DateAnnounceMax;
+    String dateAnnounceMin;
+    String dateAnnounceMax;
     String category;
     String brand;
     String model;
