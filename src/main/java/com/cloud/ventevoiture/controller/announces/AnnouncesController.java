@@ -16,6 +16,7 @@ import jakarta.persistence.criteria.Root;
 
 import com.cloud.ventevoiture.model.entity.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +42,7 @@ public class AnnouncesController {
     private final EntityManager entityManager;
     private final FileUploadService fileUploadService;
 
-    // @PostMapping()
-    // public SomeEnityData postMethodName(@RequestBody SomeEnityData entity) {
-    // //TODO: process POST request
 
-    // return entity;
-    // }
 
     @GetMapping
     public ResponseEntity<Object> findAll() {
@@ -63,11 +59,35 @@ public class AnnouncesController {
     }
 
     @GetMapping("/{id_person}/person")
-    public ResponseEntity<Object> findByPerson(@PathVariable int id_person) {
+    public ResponseEntity<Object> findByPerson(@PathVariable int id_person,Authentication authentication) {
         HashMap<String, Object> map = new HashMap<>();
+
         try {
+            User user = (User) authentication.getPrincipal();
             List<Announce> an = (List<Announce>) announcesRepository.findByIdPerson(id_person);
             if (an.isEmpty()) {
+                map.put("message", "Pas d'annonces trouvé pour cette utilisateur");
+                return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            }
+            map.put("message", "success");
+            map.put("listAnnounces", an);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while processing the request.",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/person")
+    public ResponseEntity<Object> findByAuth(Authentication authentication) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            User user = (User) authentication.getPrincipal();
+            List<Announce> an = (List<Announce>) announcesServices.findByUser(user);
+            if (an.isEmpty()) {
+
                 return new ResponseEntity<>("No announcements found for the specified person.", HttpStatus.NOT_FOUND);
             }
             map.put("message", "success");
@@ -78,6 +98,7 @@ public class AnnouncesController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @PostMapping
     public ResponseEntity<Object> newAnnounces(Authentication auth, @RequestBody AnnouncesRequest announcesRequest) {
@@ -163,10 +184,108 @@ public class AnnouncesController {
             String base64Image = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVDhPYxgFJYwMDAwMjIwMjIwM";
             byte[] compressedImage = fileUploadService.compressBase64Image(base64Image);
             Map<String, Object> responseMap = new HashMap<>();
-            //responseMap.put("message", "success");
             responseMap.put("compressedImg", compressedImage);
             responseMap.put("decompressedImg", fileUploadService.decompressBase64Image(compressedImage));
             return new ResponseEntity<>(responseMap, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/recent")
+    public ResponseEntity<Object> sortByRecentAnnounces(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"dateAnnounces");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/PriceDESC")
+    public ResponseEntity<Object> sortByPriceDesc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"sellingPrice");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/PriceASC")
+    public ResponseEntity<Object> sortByPriceAsc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.ASC,"sellingPrice");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/brandDESC")
+    public ResponseEntity<Object> sortByBrandDesc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"car.model.brand.brand");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/brandASC")
+    public ResponseEntity<Object> sortByBrandAsc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"car.model.brand.brand");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/mileAgeASC")
+    public ResponseEntity<Object> sortByMileAgeAsc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.ASC,"car.mileAge");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/mileAgeDESC")
+    public ResponseEntity<Object> sortByMileAgeDesc(){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"car.mileAge");
+            List<Announce> annonces = announcesRepository.findAll(sort);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("message", "success");
+            map.put("listAnnounces", annonces);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

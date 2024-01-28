@@ -865,6 +865,7 @@ COPY public.annonces_cinq_derniers_mois (mois, nombre_dannonces, year) FROM stdi
 --
 
 COPY public.announces (id_announces, id_person, selling_price, status, validation_date, date_announces, description, id_car) FROM stdin;
+2	1	3400	0	\N	2024-01-26 10:58:27.302588+03	This is a description	2
 \.
 
 
@@ -902,6 +903,7 @@ COPY public.brand (id_brand, brand) FROM stdin;
 --
 
 COPY public.car (id_car, id_brand, id_model, id_category, id_motorisation, id_transmission, id_version, id_fuel_type, registration, mile_age) FROM stdin;
+2	1	1	1	1	1	1	1	2450 TAB	4000
 \.
 
 
@@ -994,20 +996,21 @@ COPY public.motorisation_transmission (id_motorisation_transmission, id_motorisa
 --
 -- Data for Name: motorisation_version; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+insert into public.favorite_announces values
+    (1,2,1);
 
 COPY public.motorisation_version (id_motorisation_version, id_version, id_motorisation, details) FROM stdin;
 1	1	1	sportif avec intérieur raffiné
 2	2	1	C'est super puissant
 \.
 
-
 --
 -- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.person (birth_date, gender, id_person, first_name, last_name) FROM stdin;
-2004-01-02	1	1	\N	\N
 1999-01-25	1	2	\N	Mirindra Razafindrasoava
+2004-01-02	1	1	admin	\N
 \.
 
 
@@ -1050,7 +1053,7 @@ COPY public.version (id_version, intitule) FROM stdin;
 -- Name: announces_id_announces_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.announces_id_announces_seq', 1, false);
+SELECT pg_catalog.setval('public.announces_id_announces_seq', 2, true);
 
 
 --
@@ -1078,7 +1081,7 @@ SELECT pg_catalog.setval('public.brand_id_brand_seq', 5, true);
 -- Name: car_id_car_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.car_id_car_seq', 1, false);
+SELECT pg_catalog.setval('public.car_id_car_seq', 2, true);
 
 
 --

@@ -22,3 +22,6 @@ server:
 jwt:
    tokenLifeSpan: 86400000 # 24 hours in milliseconds
    secretKey: 1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC
+
+
+
