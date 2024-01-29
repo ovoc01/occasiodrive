@@ -54,69 +54,77 @@ public class Announce {
         }
     }
 
-    public void searchByDateAnnounce(Instant minDateAnnounce, Instant maxDateAnnounce, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
-        if (minDateAnnounce != null && maxDateAnnounce != null) {
-            predicates.add(builder.between(root.get("dateAnnounces"), minDateAnnounce, maxDateAnnounce));
-        } else if (minDateAnnounce != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("dateAnnounces"), minDateAnnounce));
-        } else if (maxDateAnnounce != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("dateAnnounces"), maxDateAnnounce));
+    public void searchByDateAnnounce(String minDateAnnounce, String maxDateAnnounce, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        Instant minInstant = (minDateAnnounce != null) ? Instant.parse(minDateAnnounce + "T00:00:00.0Z") : null;
+        Instant maxInstant = (maxDateAnnounce != null) ? Instant.parse(maxDateAnnounce + "T23:59:59.999999999Z") : null;
+
+        if (minInstant != null && maxInstant != null) {
+            predicates.add(builder.between(root.get("dateAnnounces"), minInstant, maxInstant));
+        } else if (minInstant != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("dateAnnounces"), minInstant));
+        } else if (maxInstant != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("dateAnnounces"), maxInstant));
         }
     }
 
+
     public void searchByModel(String model, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (model != null) {
-            predicates.add(builder.equal(root.get("idCarAnnounce").get("idCar").get("idModel").get("model"), model));
+            predicates.add(builder.equal(root.get("car").get("model").get("model"), model));
         }
     }
+
     public void searchByCategory(String category, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (category != null) {
-            predicates.add(builder.equal(root.get("idCarAnnounce").get("idCar").get("idModel").get("category").get("category"), category));
+            predicates.add(builder.equal(root.get("car").get("category").get("category"), category));
         }
     }
+
     public void searchByBrand(String brand, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (brand != null) {
-            predicates.add(builder.equal(root.get("idCarAnnounce").get("idCar").get("idModel").get("brand").get("brand"), brand));
+            predicates.add(builder.equal(root.get("car").get("model").get("brand").get("brand"), brand));
         }
     }
+
     public void searchByTransmission(String transmission, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (transmission != null) {
-            predicates.add(builder.equal(root.get("idCarAnnounce").get("idCar").get("idTransmission").get("name"), transmission));
+            predicates.add(builder.equal(root.get("car").get("transmission").get("name"), transmission));
         }
     }
+
     public void searchByFuelType(String fuelType, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
         if (fuelType != null) {
-        predicates.add(builder.equal(root.get("idCarAnnounce").get("idCar").get("idFuelType").get("label"), fuelType));
+            predicates.add(builder.equal(root.get("car").get("fuelType").get("label"), fuelType));
         }
     }
 
     public void searchByEnginePower(Double minEnginePower, Double maxEnginePower, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
         if (minEnginePower != null && maxEnginePower != null) {
-            predicates.add(builder.between(root.get("idCarAnnounce").get("idCar").get("enginePower"), minEnginePower, maxEnginePower));
+            predicates.add(builder.between(root.get("car").get("motorisation").get("enginePower"), minEnginePower, maxEnginePower));
         } else if (minEnginePower != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("idCarAnnounce").get("idCar").get("enginePower"), minEnginePower));
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("motorisation").get("enginePower"), minEnginePower));
         } else if (maxEnginePower != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("idCarAnnounce").get("idCar").get("enginePower"), maxEnginePower));
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("motorisation").get("enginePower"), maxEnginePower));
         }
     }
 
     public void searchByManufacturingYear(Integer minManufacturingYear, Integer maxManufacturingYear, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
         if (minManufacturingYear != null && maxManufacturingYear != null) {
-            predicates.add(builder.between(root.get("idCarAnnounce").get("manufacturingYear"), minManufacturingYear, maxManufacturingYear));
+            predicates.add(builder.between(root.get("car").get("manufacturingYear"), minManufacturingYear, maxManufacturingYear));
         } else if (minManufacturingYear != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("idCarAnnounce").get("manufacturingYear"), minManufacturingYear));
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("manufacturingYear"), minManufacturingYear));
         } else if (maxManufacturingYear != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("idCarAnnounce").get("manufacturingYear"), maxManufacturingYear));
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("manufacturingYear"), maxManufacturingYear));
         }
     }
 
     public void searchByMileAge(Double minMileAge, Double maxMileAge, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
         if (minMileAge != null && maxMileAge != null) {
-            predicates.add(builder.between(root.get("idCarAnnounce").get("mileAge"), minMileAge, maxMileAge));
+            predicates.add(builder.between(root.get("car").get("mileAge"), minMileAge, maxMileAge));
         } else if (minMileAge != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("idCarAnnounce").get("mileAge"), minMileAge));
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("mileAge"), minMileAge));
         } else if (maxMileAge != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("idCarAnnounce").get("mileAge"), maxMileAge));
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("mileAge"), maxMileAge));
         }
     }
 
