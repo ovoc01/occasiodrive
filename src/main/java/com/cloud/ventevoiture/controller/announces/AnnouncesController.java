@@ -58,6 +58,7 @@ public class AnnouncesController {
         }
     }
 
+
     @GetMapping("/{id_person}/person")
     public ResponseEntity<Object> findByPerson(@PathVariable int id_person,Authentication authentication) {
         HashMap<String, Object> map = new HashMap<>();
@@ -288,6 +289,35 @@ public class AnnouncesController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @DeleteMapping("/{id_announce}")
+    public ResponseEntity<Object> deleteAnnounces(Authentication auth,@PathVariable("id_announce") Integer idAnnounce){
+        HashMap<String,Object> map = new HashMap<>();
+        try{
+            User user = (User) auth.getPrincipal();
+            announcesServices.deleteAnnouncesById(user,idAnnounce);
+            map.put("message", "Annonce supprimé ");
+            return ResponseEntity.ok(map);
+        }catch(Exception e){
+            map.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(map);
+        }
+    }
+
+    @PostMapping("/selling/{id_announce}")
+    public ResponseEntity<Object> sellingAnnounces(Authentication auth, @PathVariable("id_announce")Integer idAnnounce){
+        HashMap<String,Object> map = new HashMap<>();
+        try{
+            User user = (User) auth.getPrincipal();
+            announcesServices.sellingAnnounce(user,idAnnounce);
+            map.put("message", "Status de l'annonce modifié : voiture vendu ");
+            return ResponseEntity.ok(map);
+        }catch(Exception e){
+            map.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(map);
         }
     }
 

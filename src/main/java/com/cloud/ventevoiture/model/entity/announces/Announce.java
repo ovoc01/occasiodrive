@@ -1,6 +1,8 @@
 package com.cloud.ventevoiture.model.entity.announces;
 
 import com.cloud.ventevoiture.model.entity.user.Person;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
@@ -136,6 +138,16 @@ public class Announce {
         } else if (maxSellingPrice != null) {
             predicates.add(builder.lessThanOrEqualTo(root.get("sellingPrice"), maxSellingPrice));
         }
+    }
+
+
+    @JsonProperty("status_intitule")
+    public String getStatusString(){
+        if(this.status<0) return "Supprimé";
+        else if(this.status==0) return "En attente";
+        else if(this.status==10) return "Validé";
+        else if (this.status==20) return "Vendu";
+        else return "Inconnu";
     }
 
 }
