@@ -4,6 +4,9 @@ import com.cloud.ventevoiture.model.entity.brand.Brand;
 import com.cloud.ventevoiture.model.repository.BrandRepository;
 import com.cloud.ventevoiture.model.services.BrandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +37,17 @@ public class BrandController {
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
     @GetMapping
     public List<Brand> listAll(){
-        
         return  brandService.initAllNeededProps();
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
+    @GetMapping("/2")
+    public ResponseEntity<List<Brand>> listAll(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Brand> brandPage = brandRepository.findAll(pageable);
+        List<Brand> brands = brandPage.getContent();
+        return new ResponseEntity<>(brands, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")

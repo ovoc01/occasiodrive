@@ -19,6 +19,7 @@ import com.cloud.ventevoiture.model.repository.PersonRepository;
 import com.cloud.ventevoiture.model.entity.user.Person;
 import com.cloud.ventevoiture.model.entity.user.User;
 import jakarta.transaction.Transactional;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,8 +67,10 @@ public class AnnouncesServices {
         carRepository.save(car);
 
     }
+
+
     @Transactional
-    public void valider(Integer idAnnounces,User user){
+    public void valider(@NonNull Integer idAnnounces,User user){
         //TODO
         Announce announce = announcesRepository.findById(idAnnounces).orElseThrow();
         announce.setStatus(10);
@@ -88,8 +91,44 @@ public class AnnouncesServices {
     public List<Announce> findByUser(User user){
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
         return this.announcesRepository.findByIdPerson(person.getIdPerson());
-
     }
 
-    
+
+    public void deleteAnnouncesById(User user,@NonNull Integer idAnnounce){
+        Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
+        Announce announce = announcesRepository.findById(idAnnounce).orElseThrow();
+        
+        final float previous_announces_state = announce.getStatus();
+        final LocalDate previousDate = announce.getValidationDate();
+        
+        announce.setStatus(-10);
+        announce.setValidationDate(LocalDate.now());
+        announce.setPerson(person);
+        announcesRepository.save(announce);
+        
+
+        AnnouncesLog announcesLog = announceLogRepository.findByIdAnnounce(idAnnounce).orElseThrow();
+        announcesLog.setStatus(Integer.parseInt(String.valueOf(previous_announces_state)));
+        announcesLog.setDate(previousDate);
+        announceLogRepository.save(announcesLog);
+    }
+
+    public void sellingAnnounce(User user, @NonNull Integer idAnnounce){
+        Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
+        Announce announce = announcesRepository.findById(idAnnounce).orElseThrow();
+
+        final float previous_announces_state = announce.getStatus();
+        final LocalDate previousDate = announce.getValidationDate();
+
+        if( previous_announces_state <10) throw new IllegalStateException("L'annonce n'est pas encore validée");
+        announce.setStatus(20);
+        announcesRepository.save(announce);
+
+
+        AnnouncesLog announcesLog = announceLogRepository.findByIdAnnounce(idAnnounce).orElseThrow();
+        announcesLog.setStatus(Integer.parseInt(String.valueOf(previous_announces_state)));
+        announcesLog.setDate(previousDate);
+        announceLogRepository.save(announcesLog);
+
+    }
 }
