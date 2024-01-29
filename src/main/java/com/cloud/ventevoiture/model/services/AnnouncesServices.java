@@ -15,12 +15,21 @@ import com.cloud.ventevoiture.model.repository.AnnouncesLogRepository;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 import com.cloud.ventevoiture.model.repository.CarRepository;
 import com.cloud.ventevoiture.model.repository.PersonRepository;
+import com.cloud.ventevoiture.model.repository.CategoryRepository;
+import com.cloud.ventevoiture.model.repository.BrandRepository;
+import com.cloud.ventevoiture.model.repository.ModelRepository;
+import com.cloud.ventevoiture.model.repository.TransmissionRepository;
+import com.cloud.ventevoiture.model.repository.FuelTypeRepository;
 import com.cloud.ventevoiture.model.entity.user.Person;
 import com.cloud.ventevoiture.model.entity.user.User;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -34,6 +43,11 @@ public class AnnouncesServices {
     private final PersonRepository personRepository;
     private final AnnouncesLogRepository announceLogRepository;
     private final CarRepository carRepository;
+    private final CategoryRepository categoryRepository;
+    private final BrandRepository brandRepository;
+    private final ModelRepository modelRepository;
+    private final TransmissionRepository transmissionRepository;
+    private final FuelTypeRepository fuelTypeRepository;
 
     @Transactional
     public void persist(AnnouncesRequest request, User user) {
@@ -128,5 +142,101 @@ public class AnnouncesServices {
         announcesLog.setDate(previousDate);
         announceLogRepository.save(announcesLog);
 
+    }
+
+    public void searchByKeyword(String keyword, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (keyword != null) {
+            keyword = keyword.toLowerCase();
+            predicates.add(builder.like(builder.lower(root.get("description")), "%" + keyword + "%"));
+        }
+    }
+
+    public void searchByDateAnnounce(String minDateAnnounce, String maxDateAnnounce, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        Instant minInstant = (minDateAnnounce != null) ? Instant.parse(minDateAnnounce + "T00:00:00.0Z") : null;
+        Instant maxInstant = (maxDateAnnounce != null) ? Instant.parse(maxDateAnnounce + "T23:59:59.999999999Z") : null;
+
+        if (minInstant != null && maxInstant != null) {
+            predicates.add(builder.between(root.get("dateAnnounces"), minInstant, maxInstant));
+        } else if (minInstant != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("dateAnnounces"), minInstant));
+        } else if (maxInstant != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("dateAnnounces"), maxInstant));
+        }
+    }
+
+
+    public void searchByModel(Integer idModel, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (idModel != null) {
+            Model model = modelRepository.findById(idModel).orElseThrow();
+            predicates.add(builder.equal(root.get("car").get("model").get("model"), model.getModel()));
+        }
+    }
+
+    public void searchByCategory(Integer idCategory, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (idCategory != null) {
+            Category category = categoryRepository.findById(idCategory).orElseThrow();
+            predicates.add(builder.equal(root.get("car").get("category").get("category"), category.getCategory()));
+        }
+    }
+
+    public void searchByBrand(Integer idBrand, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (idBrand != null) {
+            Brand brand = brandRepository.findById(idBrand).orElseThrow();
+            predicates.add(builder.equal(root.get("car").get("model").get("brand").get("brand"), brand.getBrand()));
+        }
+    }
+
+    public void searchByTransmission(Integer idTransmission, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (idTransmission != null) {
+            Transmission transmission = transmissionRepository.findById(idTransmission).orElseThrow();
+            predicates.add(builder.equal(root.get("car").get("transmission").get("name"), transmission.getName()));
+        }
+    }
+
+    public void searchByFuelType(Integer idFuelType, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root){
+        if (idFuelType != null) {
+            FuelType fuelType = fuelTypeRepository.findById(idFuelType).orElseThrow();
+            predicates.add(builder.equal(root.get("car").get("fuelType").get("label"), fuelType.getLabel()));
+        }
+    }
+
+    public void searchByEnginePower(Double minEnginePower, Double maxEnginePower, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        if (minEnginePower != null && maxEnginePower != null) {
+            predicates.add(builder.between(root.get("car").get("motorisation").get("enginePower"), minEnginePower, maxEnginePower));
+        } else if (minEnginePower != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("motorisation").get("enginePower"), minEnginePower));
+        } else if (maxEnginePower != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("motorisation").get("enginePower"), maxEnginePower));
+        }
+    }
+
+    public void searchByManufacturingYear(Integer minManufacturingYear, Integer maxManufacturingYear, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        if (minManufacturingYear != null && maxManufacturingYear != null) {
+            predicates.add(builder.between(root.get("car").get("manufacturingYear"), minManufacturingYear, maxManufacturingYear));
+        } else if (minManufacturingYear != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("manufacturingYear"), minManufacturingYear));
+        } else if (maxManufacturingYear != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("manufacturingYear"), maxManufacturingYear));
+        }
+    }
+
+    public void searchByMileAge(Double minMileAge, Double maxMileAge, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        if (minMileAge != null && maxMileAge != null) {
+            predicates.add(builder.between(root.get("car").get("mileAge"), minMileAge, maxMileAge));
+        } else if (minMileAge != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("car").get("mileAge"), minMileAge));
+        } else if (maxMileAge != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("car").get("mileAge"), maxMileAge));
+        }
+    }
+
+    public void searchBySellingPrice(Double minSellingPrice, Double maxSellingPrice, List<Predicate> predicates, CriteriaBuilder builder, Root<Announce> root) {
+        if (minSellingPrice != null && maxSellingPrice != null) {
+            predicates.add(builder.between(root.get("sellingPrice"), minSellingPrice, maxSellingPrice));
+        } else if (minSellingPrice != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("sellingPrice"), minSellingPrice));
+        } else if (maxSellingPrice != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("sellingPrice"), maxSellingPrice));
+        }
     }
 }

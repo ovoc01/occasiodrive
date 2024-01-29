@@ -36,9 +36,7 @@ import java.util.Map;
 public class AnnouncesController {
 
     private final AnnouncesServices announcesServices;
-
     private final AnnouncesRepository announcesRepository;
-
     private final EntityManager entityManager;
     private final FileUploadService fileUploadService;
 
@@ -144,38 +142,42 @@ public class AnnouncesController {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Announce> query = builder.createQuery(Announce.class);
             Root<Announce> root = query.from(Announce.class);
-            List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>();            
 
-            Announce announce = new Announce();
-
-            announce.searchByKeyword(advancedSearchRequest.getKeyword(), predicates, builder, root);
-            announce.searchByDateAnnounce(advancedSearchRequest.getDateAnnounceMin(),
+            announcesServices.searchByKeyword(advancedSearchRequest.getKeyword(), predicates, builder, root);
+            announcesServices.searchByDateAnnounce(advancedSearchRequest.getDateAnnounceMin(),
                     advancedSearchRequest.getDateAnnounceMax(), predicates, builder, root);
-            announce.searchByModel(advancedSearchRequest.getModel(), predicates, builder, root);
-            announce.searchByCategory(advancedSearchRequest.getCategory(), predicates, builder, root);
-            announce.searchByBrand(advancedSearchRequest.getBrand(), predicates, builder, root);
-            announce.searchByTransmission(advancedSearchRequest.getTransmission(), predicates, builder, root);
-            announce.searchByFuelType(advancedSearchRequest.getFuelType(), predicates, builder, root);
-            announce.searchByEnginePower(advancedSearchRequest.getEnginePowerMin(),
+            announcesServices.searchByModel(advancedSearchRequest.getModel(), predicates, builder, root);
+            announcesServices.searchByCategory(advancedSearchRequest.getCategory(), predicates, builder, root);
+            announcesServices.searchByBrand(advancedSearchRequest.getBrand(), predicates, builder, root);
+            announcesServices.searchByTransmission(advancedSearchRequest.getTransmission(), predicates, builder, root);
+            announcesServices.searchByFuelType(advancedSearchRequest.getFuelType(), predicates, builder, root);
+            announcesServices.searchByEnginePower(advancedSearchRequest.getEnginePowerMin(),
                     advancedSearchRequest.getEnginePowerMax(), predicates, builder, root);
-            announce.searchByManufacturingYear(advancedSearchRequest.getManufacturingYearMin(),
+            announcesServices.searchByManufacturingYear(advancedSearchRequest.getManufacturingYearMin(),
                     advancedSearchRequest.getManufacturingYearMax(), predicates, builder, root);
-            announce.searchByMileAge(advancedSearchRequest.getMileAgeMin(), advancedSearchRequest.getMileAgeMax(),
+            announcesServices.searchByMileAge(advancedSearchRequest.getMileAgeMin(), advancedSearchRequest.getMileAgeMax(),
                     predicates, builder, root);
-            announce.searchBySellingPrice(advancedSearchRequest.getSellingPriceMin(),
+            announcesServices.searchBySellingPrice(advancedSearchRequest.getSellingPriceMin(),
                     advancedSearchRequest.getSellingPriceMax(), predicates, builder, root);
 
             query.where(predicates.toArray(new Predicate[0]));
 
             List<Announce> searchResults = entityManager.createQuery(query).getResultList();
 
+            if (searchResults == null || searchResults.isEmpty()) {
+                throw new Exception("Aucune annonce trouvée.");
+            }
+
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("message", "success");
             responseMap.put("listAnnounce", searchResults);
 
             return new ResponseEntity<>(responseMap, HttpStatus.OK);
+
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
     }
 
