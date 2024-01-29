@@ -29,10 +29,25 @@ public class DiscussionController {
         HashMap<String, Object> map = new HashMap<>();
         try {
             User user = (User) authentication.getPrincipal();
-            List<Discussion> messages = discussionRepository.findByIdSenderAndIdReceiver(user.getPerson().getIdPerson(),receiverId);
-                map.put("message", "success");
-                map.put("messages", messages);
-                return new ResponseEntity<>(map, HttpStatus.OK);
+            Discussion messages = discussionRepository.findByIdSenderAndIdReceiver(user.getPerson().getIdPerson(),receiverId);
+            map.put("message", "success");
+            map.put("messages", messages);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(map);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> findAll(Authentication authentication){
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            User user = (User) authentication.getPrincipal();
+            List<Discussion> messages = discussionRepository.findByIdSender(user.getPerson().getIdPerson());
+            map.put("message", "success");
+            map.put("messages", messages);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(map);

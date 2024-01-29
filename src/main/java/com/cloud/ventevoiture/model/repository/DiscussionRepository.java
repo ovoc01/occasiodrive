@@ -14,5 +14,9 @@ import com.cloud.ventevoiture.model.entity.messages.Message;
 public interface DiscussionRepository extends MongoRepository<Discussion,ObjectId> {
     @Query("{'id_sender': ?0, 'id_receiver': ?1}")
     Discussion findByIdSenderAndIdReceiver(Integer senderId, Integer receiverId);
+
+    @Query("{'id_sender': ?0, 'id_receiver': ?1}")
+    List<Discussion> findByIdSender(Integer senderId);
+
     
 }
