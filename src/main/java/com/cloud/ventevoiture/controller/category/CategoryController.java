@@ -1,6 +1,7 @@
 package com.cloud.ventevoiture.controller.category;
 
 
+import com.cloud.ventevoiture.controller.request.CategoryRequest;
 import com.cloud.ventevoiture.model.entity.category.Category;
 import com.cloud.ventevoiture.model.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,16 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
-    public Category save(@RequestBody Category category){
-        return categoryRepository.save(category);
+    public ResponseEntity<Object> save(@RequestBody CategoryRequest category){
+        try{
+            Category c = new Category();
+            c.setCategory(category.getCategory());
+            categoryRepository.save(c);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")

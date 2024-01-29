@@ -27,10 +27,13 @@ public class ApplicationConfig {
       return new UserDetailsService() {
          @Override
          public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            return userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+            UserDetails userDetails =  userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+            System.out.println(userDetails);
+            return userDetails;
          }
       };
    }
+   
    @Bean
    public AuthenticationProvider authenticationProvider(){
       DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

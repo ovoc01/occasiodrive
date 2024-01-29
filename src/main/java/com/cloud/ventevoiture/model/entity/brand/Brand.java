@@ -23,6 +23,7 @@ public class Brand {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_brand")
+    @JsonBackReference
     private List<Model> models;
 
     public List<Model> getModels() {

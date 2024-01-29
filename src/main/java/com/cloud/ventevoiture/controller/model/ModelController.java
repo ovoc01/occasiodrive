@@ -1,5 +1,6 @@
 package com.cloud.ventevoiture.controller.model;
 
+import com.cloud.ventevoiture.controller.request.ModelRequest;
 import com.cloud.ventevoiture.model.entity.model.Model;
 import com.cloud.ventevoiture.model.repository.ModelRepository;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,16 @@ public class ModelController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
-    public Model save (@RequestBody Model model){
-        return modelRepository.save(model);
+    public ResponseEntity<Object> save (@RequestBody ModelRequest model){
+        try{
+            Model m = new Model();
+            m.setModel(model.getModel());
+            modelRepository.save(m);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
