@@ -298,10 +298,12 @@ public class AnnouncesController {
         HashMap<String,Object> map = new HashMap<>();
         try{
             User user = (User) auth.getPrincipal();
+            System.out.println("Id announce :"+idAnnounce);
             announcesServices.deleteAnnouncesById(user,idAnnounce);
             map.put("message", "Annonce supprimé ");
             return ResponseEntity.ok(map);
         }catch(Exception e){
+            e.printStackTrace();
             map.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(map);
         }
@@ -316,6 +318,7 @@ public class AnnouncesController {
             map.put("message", "Status de l'annonce modifié : voiture vendu ");
             return ResponseEntity.ok(map);
         }catch(Exception e){
+        
             map.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(map);
         }
