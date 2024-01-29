@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cloud.ventevoiture.model.entity.messages.Message;
 import com.cloud.ventevoiture.model.entity.user.User;
 import com.cloud.ventevoiture.model.repository.MessageRepository;
+import com.cloud.ventevoiture.model.services.DiscussionService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/messages")
 public class MessageController {
     private final MessageRepository messagerepository;
+    private final DiscussionService discussionService;
 
     @GetMapping
     public ResponseEntity<Object> findAll() {
@@ -46,6 +48,7 @@ public class MessageController {
         HashMap<String, Object> map = new HashMap<>();
         try {
             messagerepository.save(m);
+            discussionService.insert(m);
             map.put("Insertion", "success");
              return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {

@@ -1,21 +1,22 @@
 package com.cloud.ventevoiture.model.entity.messages;
-import java.time.Instant;
+
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.cloud.ventevoiture.model.entity.user.User;
-
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@Document(collection = "messages")
-public class Message {
+@RequiredArgsConstructor
+@Document(collection = "discussions")
+public class Discussion {
     @Id
     ObjectId id;
     Integer id_sender;
     Integer id_receiver;
-    String messages;
-    Instant date_creation;  
+    List<Message> messages;
+
 }
