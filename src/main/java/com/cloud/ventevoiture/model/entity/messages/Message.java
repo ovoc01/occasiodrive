@@ -10,12 +10,12 @@ import com.cloud.ventevoiture.model.entity.user.User;
 import lombok.Data;
 
 @Data
-@Document(collection = "messages")
+@Document(collection = "me  ssages")
 public class Message {
     @Id
     ObjectId id;
     Integer id_sender;
     Integer id_receiver;
     String messages;
-    Instant date_creation;  
+    Instant date_creation = Instant.now();  
 }

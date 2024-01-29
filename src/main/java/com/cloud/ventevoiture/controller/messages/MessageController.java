@@ -44,10 +44,12 @@ public class MessageController {
 
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody Message m){
+    public ResponseEntity<Object> save(Authentication authentication,@RequestBody Message m){
         HashMap<String, Object> map = new HashMap<>();
         try {
+            User user = (User) authentication.getPrincipal();
             // messagerepository.save(m);
+            m.setId_sender(user.getPerson().getIdPerson());
             discussionService.insert(m);
             map.put("Insertion", "success");
              return new ResponseEntity<>(map, HttpStatus.OK);
