@@ -44,21 +44,6 @@ public class FavoriteAnnouncesController {
     }
     
 
-    @PostMapping
-    public ResponseEntity<Object> save(@RequestBody FavoriteAnnounces favAnnounces){
-        try {
-            HashMap<String, Object> map = new HashMap<>();
-            favoriteAnnouncesRepository.save(favAnnounces);
-            map.put("message", "Save Favorite Announces successfully");
-            return new ResponseEntity<>(map, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    
-
     @PostMapping("{idAnnonce}/favorite")
     public ResponseEntity<Object> saveFav(@PathVariable Integer idAnnonce,Authentication auth){
         System.out.println("mety lty a");
