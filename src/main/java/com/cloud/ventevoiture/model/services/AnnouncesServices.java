@@ -1,6 +1,5 @@
 package com.cloud.ventevoiture.model.services;
 
-
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.entity.announces.AnnouncesLog;
@@ -35,22 +34,24 @@ public class AnnouncesServices {
     private final PersonRepository personRepository;
     private final AnnouncesLogRepository announceLogRepository;
     private final CarRepository carRepository;
+
     @Transactional
-    public void persist(AnnouncesRequest request, User user){
-        //Car car = carRepository.insertCar(request.getIdModel(),request.getIdTransmission(),request.getIdFuelType(),request.getEnginePower(),request.getRegistration(),request.getManufacturingYear(),request.getMileAge());
+    public void persist(AnnouncesRequest request, User user) {
+        // Car car =
+        // carRepository.insertCar(request.getIdModel(),request.getIdTransmission(),request.getIdFuelType(),request.getEnginePower(),request.getRegistration(),request.getManufacturingYear(),request.getMileAge());
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
 
         Car car = Car.builder()
-        .brand(Brand.builder().id_brand(request.getIdBrand()).build())
-        .model(Model.builder().id_model(request.getIdModel()).build())
-        .category(Category.builder().id_category(request.getIdCategory()).build())
-        .motorisation(Motorisation.builder().idMotorisation(request.getIdMotorisation()).build())
-        .transmission(Transmission.builder().id_transmission(request.getIdTransmission()).build())
-        .fuelType(FuelType.builder().id_fuel_type(request.getIdFuelType()).build())
-        .registration(request.getRegistration())
-        .version(Version.builder().idVersion(request.getIdVersion()).build())
-        .mileAge(request.getMileAge())
-        .build();
+                .brand(Brand.builder().id_brand(request.getIdBrand()).build())
+                .model(Model.builder().id_model(request.getIdModel()).build())
+                .category(Category.builder().id_category(request.getIdCategory()).build())
+                .motorisation(Motorisation.builder().idMotorisation(request.getIdMotorisation()).build())
+                .transmission(Transmission.builder().id_transmission(request.getIdTransmission()).build())
+                .fuelType(FuelType.builder().id_fuel_type(request.getIdFuelType()).build())
+                .registration(request.getRegistration())
+                .version(Version.builder().idVersion(request.getIdVersion()).build())
+                .mileAge(request.getMileAge())
+                .build();
 
         Announce announce = Announce.builder()
                 .description(request.getDescription())
@@ -68,10 +69,9 @@ public class AnnouncesServices {
 
     }
 
-
     @Transactional
-    public void valider(@NonNull Integer idAnnounces,User user){
-        //TODO
+    public void valider(@NonNull Integer idAnnounces, User user) {
+        // TODO
         Announce announce = announcesRepository.findById(idAnnounces).orElseThrow();
         announce.setStatus(10);
         announce.setValidationDate(LocalDate.now());
@@ -86,26 +86,22 @@ public class AnnouncesServices {
         announceLogRepository.save(log);
     }
 
-
-
-    public List<Announce> findByUser(User user){
+    public List<Announce> findByUser(User user) {
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
         return this.announcesRepository.findByIdPerson(person.getIdPerson());
     }
 
-
-    public void deleteAnnouncesById(User user,@NonNull Integer idAnnounce){
+    public void deleteAnnouncesById(User user, @NonNull Integer idAnnounce) {
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
         Announce announce = announcesRepository.findById(idAnnounce).orElseThrow();
-        
+
         final float previous_announces_state = announce.getStatus();
         final LocalDate previousDate = announce.getValidationDate();
-        
+
         announce.setStatus(-10);
         announce.setValidationDate(LocalDate.now());
         announce.setPerson(person);
         announcesRepository.save(announce);
-        
 
         AnnouncesLog announcesLog = announceLogRepository.findByIdAnnounce(idAnnounce).orElseThrow();
         announcesLog.setStatus(Integer.parseInt(String.valueOf(previous_announces_state)));
@@ -113,17 +109,19 @@ public class AnnouncesServices {
         announceLogRepository.save(announcesLog);
     }
 
-    public void sellingAnnounce(User user, @NonNull Integer idAnnounce){
+    public void sellingAnnounce(User user, @NonNull Integer idAnnounce) {
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
+        
         Announce announce = announcesRepository.findById(idAnnounce).orElseThrow();
 
         final float previous_announces_state = announce.getStatus();
         final LocalDate previousDate = announce.getValidationDate();
 
-        if( previous_announces_state <10) throw new IllegalStateException("L'annonce n'est pas encore validée");
+        if(previous_announces_state< 0) throw new IllegalStateException("L'annonce a déjà été supprimée");
+        if (previous_announces_state < 10)
+            throw new IllegalStateException("L'annonce n'est pas encore validée");
         announce.setStatus(20);
         announcesRepository.save(announce);
-
 
         AnnouncesLog announcesLog = announceLogRepository.findByIdAnnounce(idAnnounce).orElseThrow();
         announcesLog.setStatus(Integer.parseInt(String.valueOf(previous_announces_state)));
