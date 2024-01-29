@@ -1,5 +1,6 @@
 package com.cloud.ventevoiture.controller.brand;
 
+import com.cloud.ventevoiture.controller.request.BrandRequest;
 import com.cloud.ventevoiture.model.entity.brand.Brand;
 import com.cloud.ventevoiture.model.repository.BrandRepository;
 import com.cloud.ventevoiture.model.services.BrandService;
@@ -26,8 +27,17 @@ public class BrandController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
-    public Brand save(@RequestBody Brand brand){
-        return brandRepository.save(brand);
+    public ResponseEntity<Object> save(@RequestBody BrandRequest brandRequest){
+        try{
+            Brand brand = new Brand();
+            brand.setBrand(brandRequest.getBrand());
+            brandRepository.save(brand);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")

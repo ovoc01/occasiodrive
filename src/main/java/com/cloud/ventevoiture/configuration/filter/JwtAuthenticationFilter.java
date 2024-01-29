@@ -60,6 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         }catch (Exception e){
             // Token is expired, return JSON response
+            e.printStackTrace();
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.setContentType("application/json");
 

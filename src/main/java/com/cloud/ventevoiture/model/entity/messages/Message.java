@@ -10,7 +10,7 @@ import com.cloud.ventevoiture.model.entity.user.User;
 import lombok.Data;
 
 @Data
-@Document(collection = "me  ssages")
+@Document(collection = "messages")
 public class Message {
     @Id
     ObjectId id;
