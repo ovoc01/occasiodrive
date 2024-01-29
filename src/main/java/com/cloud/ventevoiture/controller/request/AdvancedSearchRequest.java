@@ -15,11 +15,11 @@ public class AdvancedSearchRequest {
     String keyword;
     String dateAnnounceMin;
     String dateAnnounceMax;
-    String category;
-    String brand;
-    String model;
-    String transmission;
-    String fuelType;
+    Integer category;
+    Integer brand;
+    Integer model;
+    Integer transmission;
+    Integer fuelType;
     Double enginePowerMin;
     Double enginePowerMax;
     Integer manufacturingYearMin;
