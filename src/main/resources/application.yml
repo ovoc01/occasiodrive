@@ -3,10 +3,7 @@ spring:
     url: jdbc:postgresql://monorail.proxy.rlwy.net:36820/railway
     username: postgres
     password: daGf2g5fF63dFebDEda*CfBEag3EG-gG
-<<<<<<< HEAD
     driver-class-name: org.postgresql.Driver
-=======
->>>>>>> main
 
   jpa:
     hibernate:
