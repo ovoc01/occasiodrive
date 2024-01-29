@@ -15,7 +15,7 @@ public interface DiscussionRepository extends MongoRepository<Discussion,ObjectI
     @Query("{'id_sender': ?0, 'id_receiver': ?1}")
     Discussion findByIdSenderAndIdReceiver(Integer senderId, Integer receiverId);
 
-    @Query("{'id_sender': ?0, 'id_receiver': ?1}")
+    @Query("{'id_sender': ?0}")
     List<Discussion> findByIdSender(Integer senderId);
 
     

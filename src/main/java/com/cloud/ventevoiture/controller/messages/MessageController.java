@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.cloud.ventevoiture.model.entity.messages.Message;
 import com.cloud.ventevoiture.model.entity.user.User;
@@ -42,15 +41,14 @@ public class MessageController {
         }
     }
 
-
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody Message m){
+    public ResponseEntity<Object> save(@RequestBody Message m) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             // messagerepository.save(m);
             discussionService.insert(m);
             map.put("Insertion", "success");
-             return new ResponseEntity<>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("erreur", e.getMessage());
@@ -60,10 +58,12 @@ public class MessageController {
     }
 
     @GetMapping("/{receiverId}/messages")
-    public ResponseEntity<Object> getMessagesBySenderAndReceiver(Authentication authentication, @PathVariable Integer receiverId) {
+    public ResponseEntity<Object> getMessagesBySenderAndReceiver(Authentication authentication,
+            @PathVariable Integer receiverId) {
         try {
             User user = (User) authentication.getPrincipal();
-            List<Message> messages = messagerepository.findByIdSenderAndIdReceiver(user.getPerson().getIdPerson(), receiverId);
+            List<Message> messages = messagerepository.findByIdSenderAndIdReceiver(user.getPerson().getIdPerson(),
+                    receiverId);
             System.out.println(messages);
             HashMap<String, Object> map = new HashMap<>();
             map.put("message", "success");
