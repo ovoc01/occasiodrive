@@ -88,7 +88,6 @@ public class AnnouncesServices {
     public List<Announce> findByUser(User user){
         Person person = personRepository.findPersonByIdPerson(user.getIdPersonUser()).orElseThrow();
         return this.announcesRepository.findByIdPerson(person.getIdPerson());
-
     }
 
     

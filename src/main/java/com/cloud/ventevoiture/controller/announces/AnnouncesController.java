@@ -64,7 +64,7 @@ public class AnnouncesController {
 
         try {
             User user = (User) authentication.getPrincipal();
-            List<Announce> an = (List<Announce>) announcesRepository.findByIdPerson(id_person);
+            List<Announce> an = (List<Announce>) announcesRepository.findByIdPerson(user.getPerson().getIdPerson());
             if (an.isEmpty()) {
                 map.put("message", "Pas d'annonces trouvé pour cette utilisateur");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);

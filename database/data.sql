@@ -23,6 +23,8 @@ SET default_table_access_method = heap;
 --
 -- Name: annonces_cinq_derniers_mois; Type: TABLE; Schema: public; Owner: postgres
 --
+insert into favorite_announces values
+    (2,1,1);
 
 CREATE TABLE public.annonces_cinq_derniers_mois (
     mois integer NOT NULL,
