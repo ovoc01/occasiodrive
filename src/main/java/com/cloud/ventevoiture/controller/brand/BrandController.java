@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/brand")
@@ -42,13 +44,24 @@ public class BrandController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
     @GetMapping("/2")
-    public ResponseEntity<List<Brand>> listAll(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Brand> brandPage = brandRepository.findAll(pageable);
-        List<Brand> brands = brandPage.getContent();
-        return new ResponseEntity<>(brands, HttpStatus.OK);
+    public List<Brand> listAll2(){
+        return  brandRepository.findAll();
     }
+
+//    @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
+//    @GetMapping("/2")
+//    public ResponseEntity<Map<String, Object>> listAll(@RequestParam(defaultValue = "0") int page,
+//                                                       @RequestParam(defaultValue = "5") int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Brand> brandPage = brandRepository.findAll(pageable);
+//        List<Brand> brands = brandPage.getContent();
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("brands", brands);
+//        response.put("totalPages", brandPage.getTotalPages());
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/delete")
