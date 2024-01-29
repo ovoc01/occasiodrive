@@ -47,13 +47,14 @@ public class MessageController {
     public ResponseEntity<Object> save(@RequestBody Message m){
         HashMap<String, Object> map = new HashMap<>();
         try {
-            messagerepository.save(m);
+            // messagerepository.save(m);
             discussionService.insert(m);
             map.put("Insertion", "success");
              return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            map.put("erreur", e.getMessage());
+            return ResponseEntity.badRequest().body(map);
         }
 
     }
