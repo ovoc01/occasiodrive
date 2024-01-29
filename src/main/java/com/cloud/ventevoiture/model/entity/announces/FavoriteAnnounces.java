@@ -1,6 +1,7 @@
 package com.cloud.ventevoiture.model.entity.announces;
 
 import com.cloud.ventevoiture.model.entity.user.Person;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class FavoriteAnnounces {
 
     @ManyToOne
     @JoinColumn(name = "id_announces")
+    @JsonBackReference
     Announce announces;
 
     
