@@ -34,7 +34,7 @@ public class DiscussionController {
             map.put("messages", messages);
             return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();    
             return ResponseEntity.badRequest().body(map);
         }
     }

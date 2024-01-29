@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.ventevoiture.model.entity.messages.Discussion;
 import com.cloud.ventevoiture.model.entity.messages.Message;
+import com.cloud.ventevoiture.model.entity.user.Person;
 import com.cloud.ventevoiture.model.entity.user.User;
 import com.cloud.ventevoiture.model.repository.DiscussionRepository;
+import com.cloud.ventevoiture.model.repository.PersonRepository;
 import com.cloud.ventevoiture.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +21,11 @@ import lombok.RequiredArgsConstructor;
 public class DiscussionService {
     private final DiscussionRepository discussionRepository;
     private final UserRepository userRepository;
+    private final PersonRepository personRepository;
 
     public void insert(Message m) throws Exception{
         checkIfExist(m.getId_receiver());
-        checkIfExist(m.getId_sender());
+        // checkIfExist(m.getId_sender());
         Discussion discu = discussionRepository.findByIdSenderAndIdReceiver(m.getId_sender(), m.getId_receiver());
         if(discu != null){
             discu.getMessages().add(m);
@@ -41,8 +44,8 @@ public class DiscussionService {
 
     public void checkIfExist(Integer id) throws Exception{
         Optional<User> user = userRepository.findById(id);
+        // Optional<Person> pers = personRepository.findPersonByIdPerson(id);
         if(user.isEmpty()){
-            System.out.println("haaaaaaa");
             throw new Exception("Cet Id ne correspond a aucun user");
         }
     }
