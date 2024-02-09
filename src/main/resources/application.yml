@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/vente_voiture_v2
+    url: jdbc:postgresql://localhost:5432/vente_voiture2
     username: postgres
-    password: pixel
+    password: postgre
 
   jpa:
     hibernate:
@@ -31,4 +31,4 @@ jwt:
    tokenLifeSpan: 86400000 # 24 hours in milliseconds
    secretKey: 1qAmtxQAGeIbs8WlvDQiWtxTfJnMqg05ZmkSytTba/NQSMq8eAG+XYQyQ29BkfC
 
-  
+

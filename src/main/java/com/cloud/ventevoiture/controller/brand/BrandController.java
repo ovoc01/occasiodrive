@@ -37,7 +37,7 @@ public class BrandController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
@@ -55,6 +55,11 @@ public class BrandController {
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
     @GetMapping("/2")
     public List<Brand> listAll2(){
+        return  brandRepository.findAll();
+    }
+
+    @GetMapping("/all")
+    public List<Brand> listAll3(){
         return  brandRepository.findAll();
     }
 

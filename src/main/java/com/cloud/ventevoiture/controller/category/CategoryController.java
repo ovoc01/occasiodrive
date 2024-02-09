@@ -41,6 +41,11 @@ public class CategoryController {
         return categoryRepository.findAll();
     }
 
+    @GetMapping("all")
+    public List<Category> listAll2(){
+        return categoryRepository.findAll();
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('USER')")
     @GetMapping("/{id_category}")
     public Category findOne(@PathVariable int id_category){

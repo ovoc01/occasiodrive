@@ -45,6 +45,11 @@ public class ModelController {
         return modelRepository.findOne(id_model);
     }
 
+    @GetMapping("/all")
+    public List<Model> listAll2(){
+        return modelRepository.findAll();
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestParam int id_model){
