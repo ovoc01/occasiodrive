@@ -18,9 +18,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-#  data:
-#    mongodb:
-#      uri: mongodb+srv://admin:mwjiRZ1nmwvy0z84@cluster0.zryrffw.mongodb.net/vente_voiture?retryWrites=true&w=majority
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:mwjiRZ1nmwvy0z84@cluster0.zryrffw.mongodb.net/vente_voiture?retryWrites=true&w=majority
 
 
 server:
