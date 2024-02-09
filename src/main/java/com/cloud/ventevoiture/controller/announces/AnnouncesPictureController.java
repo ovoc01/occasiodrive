@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,6 +57,29 @@ public class AnnouncesPictureController {
             return ResponseEntity.badRequest().body(map);
         }
     }
+
+    // @PostMapping
+    // public ResponseEntity<Object> save(){
+        // HashMap<String, Object> map = new HashMap<>();
+        // String path = "D:\\UNIVERSITY\\L3\\MR ROJO\\occasiodrive\\src\\main\\java\\com\\cloud\\ventevoiture\\controller\\announces\\imageTest\\image-2.jpg";
+        // try {
+        //     byte [] b = fileUploadService.convertImageToByteArray(path);
+        //     AnnouncesPicture p = new AnnouncesPicture();
+        //     Announce a = new Announce();
+        //     a.setId(1);
+        //     p.setId_picture(2);
+        //     p.setAnnounce(a);
+        //     p.setImagebyte(b);
+        //     announcesPictureRepository.save(p);
+        //     map.put("message", "insertion reussie");
+        //     map.put("bytes", b);
+        //     return new ResponseEntity<>(map, HttpStatus.OK);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        //     map.put("error", e.getMessage());
+        //     return ResponseEntity.badRequest().body(map);
+        // }
+    // }
 }
 
 

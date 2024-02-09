@@ -3,6 +3,7 @@ package com.cloud.ventevoiture.controller.announces;
 import com.cloud.ventevoiture.controller.request.AdvancedSearchRequest;
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.entity.announces.Announce;
+import com.cloud.ventevoiture.model.repository.AnnouncesPictureRepository;
 import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
 
 import com.cloud.ventevoiture.model.services.AnnouncesServices;
@@ -14,6 +15,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
+import java.util.Optional;
 import com.cloud.ventevoiture.model.entity.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -39,7 +41,7 @@ public class AnnouncesController {
     private final AnnouncesRepository announcesRepository;
     private final EntityManager entityManager;
     private final FileUploadService fileUploadService;
-
+    private final AnnouncesPictureRepository announcesPictureRepository;
 
 
     @GetMapping
@@ -117,8 +119,25 @@ public class AnnouncesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") Integer id) {
-        return null;
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            Optional<Announce> optionalAnnounce = announcesRepository.findById(id);
+            if (optionalAnnounce.isEmpty()) {
+                return new ResponseEntity<>("No announcements found for the specified ID.", HttpStatus.NOT_FOUND);
+            }
+            Announce announce = optionalAnnounce.get();
+            // List<AnnouncesPicture> annoncesPicture = announcesPictureRepository.findByIdAnnonce(id);
+            // announce.setAnnouncesPictures(annoncesPicture);
+            map.put("message", "success");
+            map.put("annonce", announce);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(map);
+        }
     }
+    
 
     @GetMapping("/{idAnnounces}/validate")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
