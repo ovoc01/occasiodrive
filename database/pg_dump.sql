@@ -21,21 +21,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: annonces_cinq_derniers_mois; Type: TABLE; Schema: public; Owner: postgres
---
-insert into favorite_announces values
-    (2,1,1);
-
-CREATE TABLE public.annonces_cinq_derniers_mois (
-    mois integer NOT NULL,
-    nombre_dannonces integer NOT NULL,
-    year integer NOT NULL
-);
-
-
-ALTER TABLE public.annonces_cinq_derniers_mois OWNER TO postgres;
-
---
 -- Name: announces; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -855,19 +840,10 @@ ALTER TABLE ONLY public.version ALTER COLUMN id_version SET DEFAULT nextval('pub
 
 
 --
--- Data for Name: annonces_cinq_derniers_mois; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.annonces_cinq_derniers_mois (mois, nombre_dannonces, year) FROM stdin;
-\.
-
-
---
 -- Data for Name: announces; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.announces (id_announces, id_person, selling_price, status, validation_date, date_announces, description, id_car) FROM stdin;
-2	1	3400	0	\N	2024-01-26 10:58:27.302588+03	This is a description	2
 \.
 
 
@@ -897,6 +873,41 @@ COPY public.brand (id_brand, brand) FROM stdin;
 3	Mazda
 4	Peugeot
 5	Citroen
+6	BMW
+7	Audi
+8	Volkswagen
+9	Ford
+10	Honda
+11	Hyundai
+12	Kia
+13	Nissan
+14	Renault
+15	Fiat
+16	Chevrolet
+17	Jeep
+18	Subaru
+19	Volvo
+20	Lexus
+21	Porsche
+22	Jaguar
+23	Land Rover
+24	Mini
+25	Tesla
+26	Mitsubishi
+27	Suzuki
+28	Dacia
+29	Chrysler
+30	Buick
+31	Cadillac
+32	GMC
+33	Acura
+34	Infiniti
+35	Lamborghini
+36	Bugatti
+37	Ferrari
+38	Maserati
+39	Rolls-Royce
+40	Bentley
 \.
 
 
@@ -905,7 +916,6 @@ COPY public.brand (id_brand, brand) FROM stdin;
 --
 
 COPY public.car (id_car, id_brand, id_model, id_category, id_motorisation, id_transmission, id_version, id_fuel_type, registration, mile_age) FROM stdin;
-2	1	1	1	1	1	1	1	2450 TAB	4000
 \.
 
 
@@ -915,13 +925,25 @@ COPY public.car (id_car, id_brand, id_model, id_category, id_motorisation, id_tr
 
 COPY public.category (id_category, category) FROM stdin;
 1	SUV
-2	Berlin
-3	Off Road
+2	Berline
+3	Tout-terrain
 4	4x4
 5	4x2
-6	Camionette
+6	Camionnette
 7	Coupé
-8	Sport
+8	Sportive
+9	Cabriolet
+10	Monospace
+11	Utilitaire
+12	Pick-up
+13	Compacte
+14	Citadine
+15	Electrique
+16	Hybride
+17	Crossover
+18	Luxueuse
+19	Vintage
+20	Super car
 \.
 
 
@@ -941,7 +963,12 @@ COPY public.fuel_type (id_fuel_type, label) FROM stdin;
 1	Essence
 2	Diesel
 3	Hydrogène
-4	Electrique
+4	Électrique
+5	GPL
+6	Gaz naturel
+7	Flex Fuel
+8	Hybride essence-électrique
+9	Hybride diesel-électrique
 \.
 
 
@@ -950,7 +977,6 @@ COPY public.fuel_type (id_fuel_type, label) FROM stdin;
 --
 
 COPY public.model (id_brand, id_model, model) FROM stdin;
-1	1	Yaris
 \.
 
 
@@ -959,8 +985,6 @@ COPY public.model (id_brand, id_model, model) FROM stdin;
 --
 
 COPY public.model_category (id_model_category, id_model, id_category) FROM stdin;
-1	1	7
-2	1	5
 \.
 
 
@@ -969,8 +993,6 @@ COPY public.model_category (id_model_category, id_model, id_category) FROM stdin
 --
 
 COPY public.model_category_motorisation (id_model_category_motorisation, id_model_category, engine_power, description) FROM stdin;
-1	1	150	B5 4.4 BiTurbo
-2	2	170	B5 4.4 BiTurbo
 \.
 
 
@@ -979,9 +1001,6 @@ COPY public.model_category_motorisation (id_model_category_motorisation, id_mode
 --
 
 COPY public.motorisation_fuel_type (id_motorisation_fuel_type, id_motorisation, id_fuel_type) FROM stdin;
-1	1	1
-2	1	2
-3	2	1
 \.
 
 
@@ -990,21 +1009,16 @@ COPY public.motorisation_fuel_type (id_motorisation_fuel_type, id_motorisation, 
 --
 
 COPY public.motorisation_transmission (id_motorisation_transmission, id_motorisation, id_transmission) FROM stdin;
-1	1	1
-2	1	2
 \.
 
 
 --
 -- Data for Name: motorisation_version; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-insert into public.favorite_announces values
-    (1,2,1);
 
 COPY public.motorisation_version (id_motorisation_version, id_version, id_motorisation, details) FROM stdin;
-1	1	1	sportif avec intérieur raffiné
-2	2	1	C'est super puissant
 \.
+
 
 --
 -- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1031,9 +1045,6 @@ COPY public.person_user (id_person, id_person_user, role, email, password) FROM 
 --
 
 COPY public.transmission (id_transmission, name) FROM stdin;
-1	Manuel
-2	Automatique
-3	Manuel à double embrayage
 \.
 
 
@@ -1042,12 +1053,6 @@ COPY public.transmission (id_transmission, name) FROM stdin;
 --
 
 COPY public.version (id_version, intitule) FROM stdin;
-1	XE
-2	XLE
-3	LE
-4	SE
-5	GTi
-6	TDi
 \.
 
 
@@ -1055,7 +1060,7 @@ COPY public.version (id_version, intitule) FROM stdin;
 -- Name: announces_id_announces_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.announces_id_announces_seq', 2, true);
+SELECT pg_catalog.setval('public.announces_id_announces_seq', 1, false);
 
 
 --
@@ -1076,21 +1081,21 @@ SELECT pg_catalog.setval('public.announces_picture_id_picture_seq', 1, false);
 -- Name: brand_id_brand_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.brand_id_brand_seq', 5, true);
+SELECT pg_catalog.setval('public.brand_id_brand_seq', 1, true);
 
 
 --
 -- Name: car_id_car_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.car_id_car_seq', 2, true);
+SELECT pg_catalog.setval('public.car_id_car_seq', 1, false);
 
 
 --
 -- Name: category_id_category_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.category_id_category_seq', 8, true);
+SELECT pg_catalog.setval('public.category_id_category_seq', 20, true);
 
 
 --
@@ -1104,85 +1109,77 @@ SELECT pg_catalog.setval('public.favorite_announces_id_favorite_seq', 1, false);
 -- Name: fuel_type_id_fuel_type_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.fuel_type_id_fuel_type_seq', 4, true);
+SELECT pg_catalog.setval('public.fuel_type_id_fuel_type_seq', 9, true);
 
 
 --
 -- Name: model_category_id_model_category_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.model_category_id_model_category_seq', 2, true);
+SELECT pg_catalog.setval('public.model_category_id_model_category_seq', 1, false);
 
 
 --
 -- Name: model_category_motorisation_id_model_category_motorisation_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.model_category_motorisation_id_model_category_motorisation_seq', 2, true);
+SELECT pg_catalog.setval('public.model_category_motorisation_id_model_category_motorisation_seq', 1, false);
 
 
 --
 -- Name: model_id_model_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.model_id_model_seq', 1, true);
+SELECT pg_catalog.setval('public.model_id_model_seq', 2, true);
 
 
 --
 -- Name: motorisation_fuel_type_id_motorisation_fuel_type_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.motorisation_fuel_type_id_motorisation_fuel_type_seq', 3, true);
+SELECT pg_catalog.setval('public.motorisation_fuel_type_id_motorisation_fuel_type_seq', 1, false);
 
 
 --
 -- Name: motorisation_transmission_id_motorisation_transmission_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.motorisation_transmission_id_motorisation_transmission_seq', 2, true);
+SELECT pg_catalog.setval('public.motorisation_transmission_id_motorisation_transmission_seq', 1, false);
 
 
 --
 -- Name: motorisation_version_id_motorisation_version_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.motorisation_version_id_motorisation_version_seq', 2, true);
+SELECT pg_catalog.setval('public.motorisation_version_id_motorisation_version_seq', 1, false);
 
 
 --
 -- Name: person_id_person_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.person_id_person_seq', 2, true);
+SELECT pg_catalog.setval('public.person_id_person_seq', 1, false);
 
 
 --
 -- Name: person_user_id_person_user_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.person_user_id_person_user_seq', 2, true);
+SELECT pg_catalog.setval('public.person_user_id_person_user_seq', 1, false);
 
 
 --
 -- Name: transmission_id_transmission_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transmission_id_transmission_seq', 3, true);
+SELECT pg_catalog.setval('public.transmission_id_transmission_seq', 1, false);
 
 
 --
 -- Name: version_id_version_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.version_id_version_seq', 6, true);
-
-
---
--- Name: annonces_cinq_derniers_mois annonces_cinq_derniers_mois_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.annonces_cinq_derniers_mois
-    ADD CONSTRAINT annonces_cinq_derniers_mois_pkey PRIMARY KEY (mois);
+SELECT pg_catalog.setval('public.version_id_version_seq', 1, false);
 
 
 --
