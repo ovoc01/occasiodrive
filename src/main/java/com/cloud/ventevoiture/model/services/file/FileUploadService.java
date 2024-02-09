@@ -1,7 +1,8 @@
 package com.cloud.ventevoiture.model.services.file;
 
-
+import java.io.*;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.Deflater;
@@ -30,4 +31,19 @@ public class FileUploadService {
       dos.close();
       return baos.toString("UTF-8");
    }
+
+   public byte[] convertImageToByteArray(String imagePath) throws IOException {
+        File imageFile = new File(imagePath);
+        FileInputStream fileInputStream = new FileInputStream(imageFile);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+
+        fileInputStream.close();
+        return outputStream.toByteArray();
+    }
 }

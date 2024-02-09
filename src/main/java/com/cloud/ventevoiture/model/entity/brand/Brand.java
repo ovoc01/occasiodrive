@@ -2,6 +2,7 @@ package com.cloud.ventevoiture.model.entity.brand;
 
 import com.cloud.ventevoiture.model.entity.model.Model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ public class Brand {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_brand")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Model> models;
 
     public List<Model> getModels() {

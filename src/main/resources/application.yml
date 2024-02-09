@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://monorail.proxy.rlwy.net:36820/railway
+    url: jdbc:postgresql://localhost:5432/vente_voiture_v2
     username: postgres
     password: daGf2g5fF63dFebDEda*CfBEag3EG-gG
     driver-class-name: org.postgresql.Driver
@@ -18,9 +18,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-  data:
-    mongodb:
-      uri: mongodb+srv://admin:mwjiRZ1nmwvy0z84@cluster0.zryrffw.mongodb.net/vente_voiture?retryWrites=true&w=majority
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://admin:mwjiRZ1nmwvy0z84@cluster0.zryrffw.mongodb.net/vente_voiture?retryWrites=true&w=majority
 
 
 server:
