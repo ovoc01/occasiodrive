@@ -3,6 +3,7 @@ package com.cloud.ventevoiture.model.services;
 import com.cloud.ventevoiture.controller.request.AnnouncesRequest;
 import com.cloud.ventevoiture.model.entity.announces.Announce;
 import com.cloud.ventevoiture.model.entity.announces.AnnouncesLog;
+import com.cloud.ventevoiture.model.entity.announces.AnnouncesPicture;
 import com.cloud.ventevoiture.model.entity.announces.Car;
 import com.cloud.ventevoiture.model.entity.brand.Brand;
 import com.cloud.ventevoiture.model.entity.car.FuelType;
@@ -11,15 +12,7 @@ import com.cloud.ventevoiture.model.entity.car.Transmission;
 import com.cloud.ventevoiture.model.entity.car.version.Version;
 import com.cloud.ventevoiture.model.entity.category.Category;
 import com.cloud.ventevoiture.model.entity.model.Model;
-import com.cloud.ventevoiture.model.repository.AnnouncesLogRepository;
-import com.cloud.ventevoiture.model.repository.AnnouncesRepository;
-import com.cloud.ventevoiture.model.repository.CarRepository;
-import com.cloud.ventevoiture.model.repository.PersonRepository;
-import com.cloud.ventevoiture.model.repository.CategoryRepository;
-import com.cloud.ventevoiture.model.repository.BrandRepository;
-import com.cloud.ventevoiture.model.repository.ModelRepository;
-import com.cloud.ventevoiture.model.repository.TransmissionRepository;
-import com.cloud.ventevoiture.model.repository.FuelTypeRepository;
+import com.cloud.ventevoiture.model.repository.*;
 import com.cloud.ventevoiture.model.entity.user.Person;
 import com.cloud.ventevoiture.model.entity.user.User;
 import jakarta.transaction.Transactional;
@@ -48,6 +41,7 @@ public class AnnouncesServices {
     private final ModelRepository modelRepository;
     private final TransmissionRepository transmissionRepository;
     private final FuelTypeRepository fuelTypeRepository;
+    private final AnnouncesPictureRepository announcesPictureRepository;
 
     @Transactional
     public void persist(AnnouncesRequest request, User user) {
@@ -80,6 +74,15 @@ public class AnnouncesServices {
         System.out.println(announce);
         announcesRepository.save(announce);
         carRepository.save(car);
+
+        for (String pic:request.getPhotos()){
+            AnnouncesPicture picture = AnnouncesPicture
+                    .builder()
+                    .announce(announce)
+                    .imageByte(pic.getBytes())
+                    .build();
+            announcesPictureRepository.save(picture);
+        }
 
     }
 

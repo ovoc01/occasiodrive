@@ -21,4 +21,5 @@ public class AnnouncesRequest {
     Integer idFuelType;
     String registration;
     Double mileAge;
+    String[] photos;
 }
